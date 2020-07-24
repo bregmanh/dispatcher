@@ -24,10 +24,11 @@ const useStyles = makeStyles((theme) => ({
 export default function DriverDropdown(props) {
   const classes = useStyles();
 
-  const [drivers, setDrivers] = React.useState(props.drivers);
 
   const handleChange = (event) => {
-    setDrivers(event.target.value);
+    props.setDriver(event.target.value);
+
+
   };
 
   return (

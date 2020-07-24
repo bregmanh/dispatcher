@@ -21,20 +21,38 @@ main{
   display: flex;
   justify-self: center;
 }
+.layout{
+  /* grid-template-columns:  10%;
+  grid-template-rows:  10%; */
+  display: flex;
+  flex-direction: row;
+  
+}
 .days{
   margin-top:1em;
   margin-left: 5em;
+  /* grid-column-start: auto;
+  grid-column-end: auto; */
+width:90%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-between;  
 }
 .times{
+  /* grid-row-start: 1;
+  grid-row-end: auto; */
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
 }
 .topdays{
   background-color: teal;
 }
+.newtask{
+  position: absolute;
+  margin-left: 0;
+  margin-top:1em;
+}
+
 
 @keyframes App-logo-spin {
   from {
