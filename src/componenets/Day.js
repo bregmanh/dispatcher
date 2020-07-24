@@ -15,18 +15,9 @@ export default function Day(props) {
   } else {
     tasksForDay = []
   }
- 
-  
 
-  
-  //const task_start;
-
-  //const task_start= task["start_time"];
-  //const task_duration = task["end_time"]-task["start_time"];
   return (
     <>
-      
-
       <div className="container">
         <div className="item">
           {tasksForDay.map(task => (<Task task={task} driver={props.driver} />))}

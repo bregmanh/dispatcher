@@ -47,7 +47,9 @@ function App() {
     week,
     setWeek,
     driversData,
-    tasksData
+    tasksData,
+    weekForward,
+    weekBack
   } = useApplicationData();
 
   const classes = useStyles();
@@ -60,16 +62,6 @@ function App() {
     console.log("add new task!")
   }
 
-  function weekForward() {
-    if (week !== 52) {
-      setWeek(week + 1)
-    }
-  }
-  function weekBack() {
-    if (week !== 1) {
-      setWeek(week - 1)
-    }
-  }
 
   return (
 

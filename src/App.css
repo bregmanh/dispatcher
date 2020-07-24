@@ -22,7 +22,7 @@ main{
   justify-self: center;
 }
 .layout{
-  /* grid-template-columns:  10%;
+  /* grid-template-columns:  10%, 10%, 10%, 10%, 10%, 10%;
   grid-template-rows:  10%; */
   display: flex;
   flex-direction: row;

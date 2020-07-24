@@ -14,6 +14,7 @@ export default function Form() {
   //state to determine which week to write the new task to
   const [weekTask, setWeekTask] = React.useState(null);
   const [error, setError] = React.useState(null);
+  const [newTask, setNewTask] = React.useState({});
   const {
     driver,
     setDriver,
@@ -22,7 +23,9 @@ export default function Form() {
     week,
     setWeek,
     driversData,
-    tasksData
+    tasksData,
+    tasksDatabase,
+     setTasksDatabase
   } = useApplicationData();
 
   const handleClickOpen = () => {
@@ -41,28 +44,39 @@ export default function Form() {
   };
 
   const createTask = function (e) {
-    console.log("week", weekTask)
     let inputId = e.id;
-    console.log("input id", inputId);
     let inputValue = e.value;
-    console.log("input value", inputValue);
 
     //check if the task exists
-    if (tasksData[driver.id][weekTask] && tasksData[driver.id][weekTask][inputId]) {
+    if (tasksDatabase[driver["id"]][weekTask] && tasksDatabase[driver["id"]][weekTask][inputId]) {
       const newError = { error: inputId, value: inputValue }
       setError(newError)
       console.log("Theres an error");
     } else {
-      //check if the week exists, if yes, write in the value
-      if (tasksData[driver.id][weekTask]) {
-        tasksData[driver.id][weekTask][inputId] = inputValue;
-      } else {
-        tasksData[driver.id][weekTask] = weekTask;
-        tasksData[driver.id][weekTask].push(inputId : inputValue);
+      //WET code below: fix later
+      if (inputId === "start_time" || inputId === "end_time") {
+     
+        setNewTask({ ...newTask, [inputId]: Number(inputValue) })
+      }else{
+        setNewTask({ ...newTask, [inputId]: inputValue })
       }
-      console.log(tasksData)
     }
-  };
+
+  }
+
+  const writeTaskToDatabase = function () {
+    if (tasksDatabase[driver["id"]][weekTask]) {
+ 
+      setTasksDatabase({...tasksDatabase[driver["id"]][weekTask], newTask})
+    } else {
+     
+      setTasksDatabase({...tasksDatabase[driver["id"]][weekTask], weekTask: [newTask]})
+
+    }
+    console.log("taksData", tasksDatabase);
+    handleClose();
+    //setTasks(...tasks, newTask)
+  }
 
   return (
     <div>
@@ -104,7 +118,7 @@ export default function Form() {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={writeTaskToDatabase} color="primary">
             Submit
           </Button>
         </DialogActions>
