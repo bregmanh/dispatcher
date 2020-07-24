@@ -1,5 +1,12 @@
+
+
+
 .task_show{
 margin-left: 0;
+background-color:#B0C4DE;
+border-style: inset;
+border-color: #4B0082;
+
 }
 :root {
   --margin-use: 7em;

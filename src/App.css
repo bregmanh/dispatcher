@@ -5,10 +5,10 @@ main{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   background-color: #4B0082;
   color: white;
-  
+ 
 
 }
 .dropdown{

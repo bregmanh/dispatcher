@@ -9,8 +9,8 @@ export default function useApplicationData() {
       { 'day': 'Tuesday', 'start_time': 7, 'end_time': 12, 'title': 'other', 'desciption': 'smth', 'location': 'toronto' },
       { 'day': 'Monday', 'start_time': 6, 'end_time': 8, 'title': 'pickup', 'desciption': 'pickup', 'location': 'ottawa' },]
     },
-    "2":{"1":{}},
-    "3":{"1":{}}
+    "2":{"1":[]},
+    "3":{"1":[]}
   }
   const [driver, setDriver] = useState(driversData[0]);
   const [tasks, setTasks] = useState(tasksData["1"]["1"]);
