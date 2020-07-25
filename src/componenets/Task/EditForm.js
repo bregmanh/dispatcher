@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import useApplicationData from "../hooks/useApplicationData.js";
+import useApplicationData from "../../hooks/useApplicationData.js";
 import InputField from "./InputField";
 import TextField from '@material-ui/core/TextField';
 
@@ -77,7 +77,6 @@ export default function Form() {
       let temp = {...tasksDatabase}
       temp[driver["id"]][weekTask]=[newTask]
       setTasksDatabase(temp)
-
       //setTasksDatabase({...tasksDatabase[driver["id"]], [weekTask]: [newTask]})
 
     }

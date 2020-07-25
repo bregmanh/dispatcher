@@ -1,6 +1,7 @@
 import React from 'react';
 import './Day.css';
-import Task from "./Task";
+import Task from "./Task/Show";
+import DayLabels from "./DayLabels";
 
 
 export default function Day(props) {
@@ -16,13 +17,18 @@ export default function Day(props) {
     tasksForDay = []
   }
 
+
+  let styles = {
+    
+    gridColumn: props.index+1,
+
+
+  };
+  console.log("keys", props)
   return (
-    <>
-      <div className="container">
-        <div className="item">
-          {tasksForDay.map(task => (<Task task={task} driver={props.driver} />))}
-        </div>
-      </div>
-    </>
+
+    <div style={styles}>{tasksForDay.map(task => (<Task task={task} driver={props.driver} onEdit={props.onEdit} onDelete={props.onDelete}/>))}</div>
+
+
   );
 }

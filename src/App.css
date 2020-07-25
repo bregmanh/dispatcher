@@ -22,28 +22,19 @@ main{
   justify-self: center;
 }
 .layout{
-  /* grid-template-columns:  10%, 10%, 10%, 10%, 10%, 10%;
-  grid-template-rows:  10%; */
-  display: flex;
-  flex-direction: row;
-  
+  margin-top: 5em;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows:  repeat(24, 1fr);
+
 }
 .days{
-  margin-top:1em;
-  margin-left: 5em;
-  /* grid-column-start: auto;
-  grid-column-end: auto; */
-width:90%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;  
+  margin-top:3em;
+ 
+
+   
 }
-.times{
-  /* grid-row-start: 1;
-  grid-row-end: auto; */
-  display: flex;
-  flex-direction: column; 
-}
+
 .topdays{
   background-color: teal;
 }

@@ -7,6 +7,17 @@ background-color:#B0C4DE;
 border-style: inset;
 border-color: #4B0082;
 
+
+}
+.hidden_buttons{
+  display: block;
+}
+.task_show:hover{
+  background-color: yellow;
+}
+.task_show:hover + div.hidden_buttons {
+  
+  display: block;
 }
 :root {
   --margin-use: 7em;
