@@ -41,7 +41,7 @@ export default function useApplicationData() {
     
     setTasks(tasksDatabase[driver["id"]][week])
     console.log("taksData", tasksDatabase);
-    console.log("taks", tasks);
+    console.log("tasks", tasks);
 
   }, [tasks, tasksDatabase, driver, week]);
 

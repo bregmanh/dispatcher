@@ -9,8 +9,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useApplicationData from "../../hooks/useApplicationData.js";
 import InputField from "./InputField";
 import TextField from '@material-ui/core/TextField';
+import EditIcon from '@material-ui/icons/Edit';
 
-export default function Form() {
+export default function EditForm(props) {
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
   const [weekTask, setWeekTask] = React.useState(null);
@@ -27,7 +28,7 @@ export default function Form() {
     tasksData,
     tasksDatabase,
     setTasksDatabase
-     
+
   } = useApplicationData();
 
   const handleClickOpen = () => {
@@ -57,9 +58,9 @@ export default function Form() {
     } else {
       //WET code below: fix later
       if (inputId === "start_time" || inputId === "end_time") {
-     
+
         setNewTask({ ...newTask, [inputId]: Number(inputValue) })
-      }else{
+      } else {
         setNewTask({ ...newTask, [inputId]: inputValue })
       }
     }
@@ -69,13 +70,13 @@ export default function Form() {
     //if week exists in the database
     if (tasksDatabase[driver["id"]][weekTask]) {
       //making a copy of the database
-      let temp = {...tasksDatabase};
+      let temp = { ...tasksDatabase };
       temp[driver["id"]][weekTask].push(newTask);
       setTasksDatabase(temp)
       //if the week doesnt exist in the database
     } else {
-      let temp = {...tasksDatabase}
-      temp[driver["id"]][weekTask]=[newTask]
+      let temp = { ...tasksDatabase }
+      temp[driver["id"]][weekTask] = [newTask]
       setTasksDatabase(temp)
       //setTasksDatabase({...tasksDatabase[driver["id"]], [weekTask]: [newTask]})
 
@@ -86,14 +87,13 @@ export default function Form() {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        New Task
-      </Button>
+      <EditIcon onClick={handleClickOpen} />
+
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add New Task</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit the Task</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please add the details about the task you would like to create here.
+            Please edit the contents of the task.
           </DialogContentText>
 
           <TextField
@@ -103,6 +103,7 @@ export default function Form() {
             label="Week"
             type="number"
             maxWidth='md'
+            defaultValue={week}
             onChange={(e) => setWeekTask(e.target.value)}
           />
           {taksKeys.map(key => (
@@ -112,8 +113,8 @@ export default function Form() {
               id={key}
               label={key.charAt(0).toUpperCase() + key.slice(1)}
               type={key === 'start_time' || key === 'end_time' ? 'number' : 'text'}
-              fullWidth={key === 'description' || key === 'location' ? 'true' : 'false'}
-              inputProps={key.charAt(0).toUpperCase}
+              defaultValue={props.task[key]}
+
               createTask={createTask}
             />
           ))}

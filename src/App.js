@@ -1,10 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import DriverDropdown from './componenets/DriverDropdown'
 import CSVDropdown from './componenets/CSVDropdown'
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import Day from './componenets/Day'
 import Time from './componenets/Time'
 import Form from './componenets/Form'
@@ -34,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
-
-
 function App() {
 
   const {
@@ -47,7 +41,6 @@ function App() {
     week,
     setWeek,
     driversData,
-    tasksData,
     weekForward,
     weekBack,
     

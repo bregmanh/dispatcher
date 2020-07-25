@@ -1,16 +1,16 @@
 import React from 'react';
-import { useEffect } from "react";
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useApplicationData from "../../hooks/useApplicationData.js";
-import InputField from "./InputField";
-import TextField from '@material-ui/core/TextField';
 
-export default function Form() {
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
+export default function DeleteForm(props) {
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
   const [weekTask, setWeekTask] = React.useState(null);
@@ -45,87 +45,30 @@ export default function Form() {
     setOpen(false);
   };
 
-  const createTask = function (e) {
-    let inputId = e.id;
-    let inputValue = e.value;
-
-    //check if the task exists
-    if (tasksDatabase[driver["id"]][weekTask] && tasksDatabase[driver["id"]][weekTask][inputId]) {
-      const newError = { error: inputId, value: inputValue }
-      setError(newError)
-      console.log("Theres an error");
-    } else {
-      //WET code below: fix later
-      if (inputId === "start_time" || inputId === "end_time") {
-     
-        setNewTask({ ...newTask, [inputId]: Number(inputValue) })
-      }else{
-        setNewTask({ ...newTask, [inputId]: inputValue })
-      }
-    }
-
-  }
-  const writeTaskToDatabase = function () {
+  const deleteTaskFromDatabase = function () {
     //if week exists in the database
-    if (tasksDatabase[driver["id"]][weekTask]) {
-      //making a copy of the database
-      let temp = {...tasksDatabase};
-      temp[driver["id"]][weekTask].push(newTask);
-      setTasksDatabase(temp)
-      //if the week doesnt exist in the database
-    } else {
-      let temp = {...tasksDatabase}
-      temp[driver["id"]][weekTask]=[newTask]
-      setTasksDatabase(temp)
-      //setTasksDatabase({...tasksDatabase[driver["id"]], [weekTask]: [newTask]})
-
-    }
+    let taskToDelete=tasksDatabase[driver["id"]][week].findIndex(e => JSON.stringify(e) === JSON.stringify(props.task))
+    console.log("taskToDelete", taskToDelete)
+    let newTasks=[...tasks]
+    newTasks.splice(taskToDelete,1)
+    setTasks(newTasks)
     handleClose();
     //setTasks(...tasks, newTask)
   }
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        New Task
-      </Button>
+      <DeleteIcon onClick={handleClickOpen}/>
+      
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add New Task</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Please add the details about the task you would like to create here.
-          </DialogContentText>
-
-          <TextField
-            autoFocus
-            margin="dense"
-            id="week"
-            label="Week"
-            type="number"
-            maxWidth='md'
-            onChange={(e) => setWeekTask(e.target.value)}
-          />
-          {taksKeys.map(key => (
-            <InputField
-              taskaData={tasksData} driver={driver}
-              margin='dense'
-              id={key}
-              label={key.charAt(0).toUpperCase() + key.slice(1)}
-              type={key === 'start_time' || key === 'end_time' ? 'number' : 'text'}
-              fullWidth={key === 'description' || key === 'location' ? 'true' : 'false'}
-              inputProps={key.charAt(0).toUpperCase}
-              createTask={createTask}
-            />
-          ))}
-
-
-        </DialogContent>
+        <DialogTitle id="form-dialog-title">Are you sure you want to delete?</DialogTitle>
+       
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={writeTaskToDatabase} color="primary">
-            Submit
+          <Button onClick={deleteTaskFromDatabase} color="red">
+            Delete
           </Button>
         </DialogActions>
       </Dialog>

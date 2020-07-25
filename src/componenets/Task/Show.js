@@ -1,8 +1,6 @@
 import React from "react";
 import './Show.css';
 import Task from ".";
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 import EditForm from './EditForm';
 import DeleteForm from './DeleteForm';
 
@@ -25,7 +23,7 @@ export default function Show(props) {
       <main style={styles} className="task_show">
         <h5>Title: {props.task["title"]}</h5>
         <p>Description: {props.task["desciption"]}</p>
-        <div className="hidden_buttons"><EditIcon  fontSize="small" onClick={props.onEdit}/><DeleteIcon fontSize="small" onClick={props.onDelete}/></div>
+        <div className="hidden_buttons"><EditForm task={props.task} /><DeleteForm task={props.task}/></div>
         
       </main>
       

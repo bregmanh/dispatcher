@@ -11,6 +11,7 @@ export default function InputField(props) {
     id={props.id}
     label={props.label}
     type={props.type}
+    defaultValue={props.defaultValue}
     onChange={(e) => props.createTask(e.target)}
     />)
 
