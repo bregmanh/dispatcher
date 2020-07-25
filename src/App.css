@@ -22,7 +22,7 @@ main {
   margin-top: 5em;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(24, 1fr);
+ 
 }
 .days {
   margin-top: 3em;

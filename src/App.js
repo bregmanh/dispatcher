@@ -129,7 +129,7 @@ function App() {
             day={day}
             addNewTask={addNewTask}
             index={index}
-            key={index}
+            key={day}
             onEdit={onEdit}
             onDelete={onDelete}
           />

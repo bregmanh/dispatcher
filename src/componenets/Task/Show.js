@@ -10,8 +10,9 @@ export default function Show(props) {
   const task_duration = task_end - task_start;
 
   let styles = {
-    gridRowStart: task_start + 1,
-    gridRowEnd: task_start + task_duration,
+    //marginTop: `${(task_start + 1)}em`,
+    
+    
   };
 
   return (

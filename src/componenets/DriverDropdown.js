@@ -36,7 +36,7 @@ export default function DriverDropdown(props) {
           label={props.driver["name"]}
         >
           {props.drivers.map((driver) => (
-            <MenuItem value={driver}>{driver["name"]}</MenuItem>
+            <MenuItem key={driver["id"]} value={driver}>{driver["name"]}</MenuItem>
           ))}
         </Select>
       </FormControl>

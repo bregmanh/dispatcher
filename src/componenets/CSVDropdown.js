@@ -37,7 +37,7 @@ export default function CSVDropdown(props) {
           className={classes.selectEmpty}
         >
           {items.map((item) => (
-            <MenuItem value={item}>{item}</MenuItem>
+            <MenuItem value={item} key={item}>{item}</MenuItem>
           ))}
         </Select>
       </FormControl>

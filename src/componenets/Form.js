@@ -9,9 +9,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import useApplicationData from "../hooks/useApplicationData.js";
 import InputField from "./InputField";
 import TextField from "@material-ui/core/TextField";
+const _ = require("lodash");
 
 export default function Form() {
-  var _ = require("lodash");
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
   const [weekTask, setWeekTask] = React.useState(null);
@@ -28,6 +28,7 @@ export default function Form() {
     tasksData,
     tasksDatabase,
     setTasksDatabase,
+    changeState
   } = useApplicationData();
 
   const handleClickOpen = () => {
@@ -80,11 +81,13 @@ export default function Form() {
       let temp = _.cloneDeep(tasksDatabase);
       temp[driver["id"]][weekTask].push(newTask);
       console.log("temp", temp);
-      setTasksDatabase(temp);
+      changeState(temp)
+
       //if the week doesnt exist in the database
     } else {
       let temp = { ...tasksDatabase };
       temp[driver["id"]][weekTask] = [newTask];
+
       setTasksDatabase(temp);
 
       //setTasksDatabase({...tasksDatabase[driver["id"]], [weekTask]: [newTask]})
@@ -129,9 +132,7 @@ export default function Form() {
               type={
                 key === "start_time" || key === "end_time" ? "number" : "text"
               }
-              fullWidth={
-                key === "description" || key === "location" ? "true" : "false"
-              }
+              
               inputProps={key.charAt(0).toUpperCase}
               createTask={createTask}
             />
