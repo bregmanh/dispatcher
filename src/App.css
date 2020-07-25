@@ -19,18 +19,32 @@ main {
   justify-self: center;
 }
 .layout {
-  margin-top: 5em;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  display: flex;
+  flex-direction: row;
+
  
 }
 .days {
-  margin-top: 3em;
+  margin-top:1em;
+  margin-left: 5em;
+  /* grid-column-start: auto;
+  grid-column-end: auto; */
+
+ display: grid;
+ grid-template-columns: repeat(7, 1fr);
+
+}
+.times{
+  /* grid-row-start: 1;
+  grid-row-end: auto; */
+  display: flex;
+  flex-direction: column; 
 }
 
 .topdays {
   background-color: teal;
 }
+
 .newtask {
   position: absolute;
   margin-left: 0;

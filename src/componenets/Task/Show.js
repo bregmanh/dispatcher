@@ -10,19 +10,26 @@ export default function Show(props) {
   const task_duration = task_end - task_start;
 
   let styles = {
-    //marginTop: `${(task_start + 1)}em`,
+    //marginTop:"3em",
+    marginTop: `${(task_start)* 8-1}em`,
+    position: "absolute",
+    height: `${task_duration*7+2}em`
     
-    
+
+
+
   };
 
   return (
     <main style={styles} className="task_show">
-      <h5>Title: {props.task["title"]}</h5>
-      <p>Description: {props.task["desciption"]}</p>
+      <h5>{props.task["title"]}</h5>
+      <p>{props.task["desciption"]}</p>
+      <p>Start: {props.task["start_time"]}</p>
+      <p>End: {props.task["end_time"]}</p>
       <div className="hidden_buttons">
         <EditForm task={props.task} />
         <DeleteForm task={props.task} />
       </div>
-    </main>
+    </main >
   );
 }

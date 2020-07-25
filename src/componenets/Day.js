@@ -16,7 +16,7 @@ export default function Day(props) {
   
 
   let styles = {
-    gridColumn: props.index + 1,
+
     
     
   };

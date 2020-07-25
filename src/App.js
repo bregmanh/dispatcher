@@ -15,7 +15,60 @@ import Week from "./componenets/Week";
 import { makeStyles } from "@material-ui/core/styles";
 // import AppBar from '@material-ui/core/AppBar';
 // import Toolbar from '@material-ui/core/Toolbar';
-
+const initialTaskDatalol = {
+  //first key is driver id, second key is week id
+  "1": {
+    "1": [
+      {
+        day: "Monday",
+        start_time: 10,
+        end_time: 16,
+        title: "dropoff",
+        desciption: "smaaaaaaath",
+        location: "london",
+      },
+      {
+        day: "Tuesday",
+        start_time: 7,
+        end_time: 12,
+        title: "other",
+        desciption: "smaaaaaaath",
+        location: "toronto",
+      },
+      {
+        day: "Monday",
+        start_time: 6,
+        end_time: 8,
+        title: "pickup",
+        desciption: "pickupaaaaaaaaa",
+        location: "ottawa",
+      },
+    ],
+    "2": [
+      {
+        day: "Monday",
+        start_time: 10,
+        end_time: 16,
+        title: "dropoff",
+        desciption: "smth",
+        location: "london",
+      },
+    ],
+  },
+  "2": {
+    "1": [
+      {
+        day: "Monday",
+        start_time: 10,
+        end_time: 16,
+        title: "dropoff",
+        desciption: "smth",
+        location: "london",
+      },
+    ],
+  },
+  "3": { "1": [] },
+};
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -39,6 +92,9 @@ function App() {
     driversData,
     weekForward,
     weekBack,
+    changeState,
+    tasksData,
+    tasksDatabase
   } = useApplicationData();
 
   const classes = useStyles();
@@ -115,26 +171,33 @@ function App() {
         </Toolbar>
       </AppBar>
       <div className="newtask">
-        <Form />
+        <Form {...{driver, tasksData, tasksDatabase, changeState}} />
+        
       </div>
       <div className="layout">
-        {times.map((time, index) => (
-          <Time time={time} index={index} key={index} />
-        ))}
+        <div className="times">
+          {times.map(time => (<Time time={time} />))}
+        </div>
+        <div className="days">
 
-        {days.map((day, index) => (
-          <Day
-            driver={driver}
-            tasks={tasks}
-            day={day}
-            addNewTask={addNewTask}
-            index={index}
-            key={day}
-            onEdit={onEdit}
-            onDelete={onDelete}
-          />
-        ))}
+          {days.map((day, index) => (
+            <div className='day'>
+              <div className="topdays">{day}</div>
+              <Day
+                driver={driver}
+                tasks={tasks}
+                day={day}
+                addNewTask={addNewTask}
+                index={index}
+                key={day}
+                onEdit={onEdit}
+                onDelete={onDelete}
+              />
+            </div>))}
+        </div>
       </div>
+
+
     </main>
     //take the componeent that diplays the days on the side (make a separate component)
   );

@@ -3,6 +3,9 @@
   background-color: #b0c4de;
   border-style: inset;
   border-color: #4b0082;
+  text-align: center;
+  
+  font-size: small;
  
 }
 .hidden_buttons {

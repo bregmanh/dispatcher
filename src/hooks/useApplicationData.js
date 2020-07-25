@@ -62,7 +62,8 @@ export default function useApplicationData() {
   };
   //all tasks
   const [tasksDatabase, setTasksDatabase] = useState(initialTaskData);
-
+  const [tasksDatabase2, setTasksDatabase2] = useState();
+console.log("td 2", tasksDatabase2 )
   const [driver, setDriver] = useState(driversData[0]);
   //taks for the week
   const [tasks, setTasks] = useState(initialTaskData["1"]["1"]);
@@ -81,6 +82,8 @@ export default function useApplicationData() {
   }
   function changeState(temp){
     setTasksDatabase(temp);
+    setTasksDatabase2("chicken");
+
     console.log("temp!", temp)
 
     console.log("function called!!")
@@ -100,10 +103,8 @@ export default function useApplicationData() {
     tasks,
     setTasks,
     week,
-    setWeek,
     driversData,
     tasksDatabase,
-    setTasksDatabase,
     weekForward,
     weekBack,
     changeState

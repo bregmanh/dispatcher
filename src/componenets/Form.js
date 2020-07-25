@@ -11,25 +11,33 @@ import InputField from "./InputField";
 import TextField from "@material-ui/core/TextField";
 const _ = require("lodash");
 
-export default function Form() {
+export default function Form({
+  driver,
+  setDriver,
+  tasks,
+  setTasks,
+  week,
+  driversData,
+  tasksData,
+  tasksDatabase,
+  changeState
+}) {
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
   const [weekTask, setWeekTask] = React.useState(null);
   const [error, setError] = React.useState(null);
   const [newTask, setNewTask] = React.useState({});
-  const {
-    driver,
-    setDriver,
-    tasks,
-    setTasks,
-    week,
-    setWeek,
-    driversData,
-    tasksData,
-    tasksDatabase,
-    setTasksDatabase,
-    changeState
-  } = useApplicationData();
+  // const {
+  //   driver,
+  //   setDriver,
+  //   tasks,
+  //   setTasks,
+  //   week,
+  //   driversData,
+  //   tasksData,
+  //   tasksDatabase,
+  //   changeState
+  // } = useApplicationData();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,8 +62,9 @@ export default function Form() {
   };
 
   const createTask = function (e) {
-    let inputId = e.id;
-    let inputValue = e.value;
+    console.log(e.target.id, e.target.value)
+    let inputId = e.target.id;
+    let inputValue = e.target.value;
 
     //check if the task exists
     if (
@@ -82,16 +91,30 @@ export default function Form() {
       temp[driver["id"]][weekTask].push(newTask);
       console.log("temp", temp);
       changeState(temp)
+     }
+    //   //if the week doesnt exist in the database
+    // } else {
+    //   // let temp = { ...tasksDatabase };
+    //   // temp[driver["id"]][weekTask] = [newTask];
 
-      //if the week doesnt exist in the database
-    } else {
-      let temp = { ...tasksDatabase };
-      temp[driver["id"]][weekTask] = [newTask];
+    //   // setTasksDatabase(temp);
 
-      setTasksDatabase(temp);
+    //   //setTasksDatabase({...tasksDatabase[driver["id"]], [weekTask]: [newTask]})
+    // }
 
-      //setTasksDatabase({...tasksDatabase[driver["id"]], [weekTask]: [newTask]})
-    }
+    // const newTask = {
+    //   day: "Monday",
+    //   start_time: 12,
+    //   end_time: 16,
+    //   title: "dropaaaaaoff",
+    //   desciption: "aaaaaaa",
+    //   location: "londaaaaaon",
+    // }
+    // let temp = _.cloneDeep(tasksDatabase);
+    // temp["1"]["1"].push(newTask)
+    // changeState(prev => ({...prev, lol:"YAS", yas:"LOL"}))
+
+
     handleClose();
     //setTasks(...tasks, newTask)
   };
@@ -105,13 +128,12 @@ export default function Form() {
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-      >
+ >
         <DialogTitle id="form-dialog-title">Add New Task</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Please add the details about the task you would like to create here.
           </DialogContentText>
-
           <TextField
             autoFocus
             margin="dense"
@@ -122,19 +144,16 @@ export default function Form() {
             onChange={(e) => setWeekTask(e.target.value)}
           />
           {taksKeys.map((key, index) => (
-            <InputField
+            <TextField
               key={index}
               taskaData={tasksData}
               driver={driver}
               margin="dense"
               id={key}
               label={key.charAt(0).toUpperCase() + key.slice(1)}
-              type={
-                key === "start_time" || key === "end_time" ? "number" : "text"
-              }
-              
+              type={key === "start_time" || key === "end_time" ? "number" : "text"}              
               inputProps={key.charAt(0).toUpperCase}
-              createTask={createTask}
+              onChange={createTask}
             />
           ))}
         </DialogContent>
