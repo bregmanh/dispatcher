@@ -1,16 +1,17 @@
-import React from 'react';
+import React from "react";
 import { useEffect } from "react";
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import useApplicationData from "../hooks/useApplicationData.js";
 import InputField from "./InputField";
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 
 export default function Form() {
+  var _ = require("lodash");
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
   const [weekTask, setWeekTask] = React.useState(null);
@@ -26,14 +27,20 @@ export default function Form() {
     driversData,
     tasksData,
     tasksDatabase,
-    setTasksDatabase
-     
+    setTasksDatabase,
   } = useApplicationData();
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-  const taksKeys = ["day", "start_time", "end_time", "title", "desciption", "location"]
+  const taksKeys = [
+    "day",
+    "start_time",
+    "end_time",
+    "title",
+    "desciption",
+    "location",
+  ];
   // "1": {
   //   "1": [{ 'day': 'Monday', 'start_time': 10, 'end_time': 16, 'title': 'dropoff', 'desciption': 'smth', 'location': 'london' },
   //   { 'day': 'Tuesday', 'start_time': 7, 'end_time': 12, 'title': 'other', 'desciption': 'smth', 'location': 'toronto' },
@@ -50,47 +57,52 @@ export default function Form() {
     let inputValue = e.value;
 
     //check if the task exists
-    if (tasksDatabase[driver["id"]][weekTask] && tasksDatabase[driver["id"]][weekTask][inputId]) {
-      const newError = { error: inputId, value: inputValue }
-      setError(newError)
+    if (
+      tasksDatabase[driver["id"]][weekTask] &&
+      tasksDatabase[driver["id"]][weekTask][inputId]
+    ) {
+      const newError = { error: inputId, value: inputValue };
+      setError(newError);
       console.log("Theres an error");
     } else {
       //WET code below: fix later
       if (inputId === "start_time" || inputId === "end_time") {
-     
-        setNewTask({ ...newTask, [inputId]: Number(inputValue) })
-      }else{
-        setNewTask({ ...newTask, [inputId]: inputValue })
+        setNewTask({ ...newTask, [inputId]: Number(inputValue) });
+      } else {
+        setNewTask({ ...newTask, [inputId]: inputValue });
       }
     }
-
-  }
+  };
   const writeTaskToDatabase = function () {
     //if week exists in the database
     if (tasksDatabase[driver["id"]][weekTask]) {
       //making a copy of the database
-      let temp = {...tasksDatabase};
+      let temp = _.cloneDeep(tasksDatabase);
       temp[driver["id"]][weekTask].push(newTask);
-      setTasksDatabase(temp)
+      console.log("temp", temp);
+      setTasksDatabase(temp);
       //if the week doesnt exist in the database
     } else {
-      let temp = {...tasksDatabase}
-      temp[driver["id"]][weekTask]=[newTask]
-      setTasksDatabase(temp)
+      let temp = { ...tasksDatabase };
+      temp[driver["id"]][weekTask] = [newTask];
+      setTasksDatabase(temp);
 
       //setTasksDatabase({...tasksDatabase[driver["id"]], [weekTask]: [newTask]})
-
     }
     handleClose();
     //setTasks(...tasks, newTask)
-  }
+  };
 
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         New Task
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">Add New Task</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -103,23 +115,27 @@ export default function Form() {
             id="week"
             label="Week"
             type="number"
-            maxWidth='md'
+            maxWidth="md"
             onChange={(e) => setWeekTask(e.target.value)}
           />
-          {taksKeys.map(key => (
+          {taksKeys.map((key, index) => (
             <InputField
-              taskaData={tasksData} driver={driver}
-              margin='dense'
+              key={index}
+              taskaData={tasksData}
+              driver={driver}
+              margin="dense"
               id={key}
               label={key.charAt(0).toUpperCase() + key.slice(1)}
-              type={key === 'start_time' || key === 'end_time' ? 'number' : 'text'}
-              fullWidth={key === 'description' || key === 'location' ? 'true' : 'false'}
+              type={
+                key === "start_time" || key === "end_time" ? "number" : "text"
+              }
+              fullWidth={
+                key === "description" || key === "location" ? "true" : "false"
+              }
               inputProps={key.charAt(0).toUpperCase}
               createTask={createTask}
             />
           ))}
-
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

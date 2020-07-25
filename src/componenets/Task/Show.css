@@ -1,22 +1,16 @@
-
-
-
-.task_show{
-margin-left: 0;
-background-color:#B0C4DE;
-border-style: inset;
-border-color: #4B0082;
-
-
+.task_show {
+  margin-left: 0;
+  background-color: #b0c4de;
+  border-style: inset;
+  border-color: #4b0082;
 }
-.hidden_buttons{
+.hidden_buttons {
   display: block;
 }
-.task_show:hover{
+.task_show:hover {
   background-color: yellow;
 }
 .task_show:hover + div.hidden_buttons {
-  
   display: block;
 }
 :root {
@@ -24,86 +18,70 @@ border-color: #4B0082;
 }
 
 #div1 {
-  background-color: calc(var(--margin-use)*2);
+  background-color: calc(var(--margin-use) * 2);
 }
-.start_0{
-margin-top: 0;
+.start_0 {
+  margin-top: 0;
 }
-.start_1{
-  margin-top: calc(var(--margin-use))
+.start_1 {
+  margin-top: calc(var(--margin-use));
 }
-.start_2{
-  margin-top: calc(var(--margin-use)*2)
+.start_2 {
+  margin-top: calc(var(--margin-use) * 2);
 }
-.start_3{
-  margin-top: calc(var(--margin-use)*3)
+.start_3 {
+  margin-top: calc(var(--margin-use) * 3);
 }
-.start_4{
-  margin-top: calc(var(--margin-use)*4)
+.start_4 {
+  margin-top: calc(var(--margin-use) * 4);
 }
-.start_5{
-  margin-top: calc(var(--margin-use)*5)
+.start_5 {
+  margin-top: calc(var(--margin-use) * 5);
 }
-.start_6{
-  margin-top: calc(var(--margin-use)*6)
+.start_6 {
+  margin-top: calc(var(--margin-use) * 6);
 }
-.start_7{
-  margin-top: calc(var(--margin-use)*7)
+.start_7 {
+  margin-top: calc(var(--margin-use) * 7);
 }
-.start_8{
-  margin-top: calc(var(--margin-use)*8)
+.start_8 {
+  margin-top: calc(var(--margin-use) * 8);
 }
-.start_9{
-  margin-top: calc(var(--margin-use)*9)
+.start_9 {
+  margin-top: calc(var(--margin-use) * 9);
 }
-.start_10{
-  margin-top: calc(var(--margin-use)*10)
+.start_10 {
+  margin-top: calc(var(--margin-use) * 10);
 }
-.start_11{
-  
+.start_11 {
 }
-.start_12{
-  
+.start_12 {
 }
-.start_13{
-  
+.start_13 {
 }
-.start_14{
-  
+.start_14 {
 }
-.start_15{
-  
+.start_15 {
 }
-.start_16{
-  
+.start_16 {
 }
-.start_17{
-  
+.start_17 {
 }
-.start_18{
-  
+.start_18 {
 }
-.start_19{
-  
+.start_19 {
 }
-.start_20{
-  
+.start_20 {
 }
-.start_21{
-  
+.start_21 {
 }
-.start_22{
-  
+.start_22 {
 }
-.start_23{
-  
+.start_23 {
 }
-.start_24{
-  
+.start_24 {
 }
-.duration_1{
-  
+.duration_1 {
 }
-.duration_2{
-  
+.duration_2 {
 }

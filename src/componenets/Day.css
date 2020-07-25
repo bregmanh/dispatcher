@@ -1,11 +1,11 @@
-.task{
+.task {
   display: flex;
   flex-direction: column;
 }
-.container{
-  grid-template-rows:  10%;
+.container {
+  grid-template-rows: 10%;
 }
-.plus_icon{
+.plus_icon {
   display: flex;
   justify-content: center;
 }
