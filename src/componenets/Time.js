@@ -3,10 +3,11 @@ import "./Time.css";
 
 export default function Times(props) {
   let styles = {   
-    gridColumn: 1,
+   
+    gridRowStart: props.index
   };
   return (
-    <div style={styles} className="times">
+    <div style={styles} className="time-item">
       {props.time}
     </div>
   );

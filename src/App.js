@@ -176,7 +176,9 @@ function App() {
       </div>
       <div className="layout">
         <div className="times">
-          {times.map(time => (<Time time={time} />))}
+        <div>
+          {times.map((time, index) => (<Time time={time} key={time} index={index}/>))}
+        </div>
         </div>
         <div className="days">
 

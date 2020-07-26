@@ -11,9 +11,11 @@ export default function Show(props) {
 
   let styles = {
     //marginTop:"3em",
-    marginTop: `${(task_start)* 8-1}em`,
-    position: "absolute",
-    height: `${task_duration*7+2}em`
+    // marginTop: `${(task_start)* 8-1}em`,
+    // position: "absolute",
+    // height: `${task_duration*7+2}em`
+    gridRowStart: `${task_start+1}`,
+    gridRowEnd: `${task_end+1}`
     
 
 

@@ -1,7 +1,5 @@
-.times {
-  margin-top: 2em;
-  padding-bottom: 3em;
-  justify-self: top;
-  
+.time-item {
+ 
+  height: 15em;
   
 }

@@ -16,8 +16,9 @@ export default function Day(props) {
   
 
   let styles = {
-
-    
+display: "grid",
+gridTemplateRows: "repeat(24, 15em)",
+marginTop: "2em"
     
   };
   console.log("keys", props);
