@@ -13,18 +13,18 @@ export default function Day(props) {
   } else {
     tasksForDay = [];
   }
-  
+
 
   let styles = {
-display: "grid",
-gridTemplateRows: "repeat(24, 5em)",
-marginTop: "2em"
-    
+    display: "grid",
+    gridTemplateRows: "repeat(24, 5em)",
+    marginTop: "2em"
+
   };
   console.log("keys", props);
   return (
     <div style={styles}>
-      {tasksForDay.map((task) => (
+      {tasksForDay.map((task, index) => (
         <Task
           key={`${task["day"]}_${task["start_time"]}`}
           task={task}
@@ -35,6 +35,8 @@ marginTop: "2em"
           week={props.week}
           setTasks={props.setTasks}
           setTasksDatabase={props.setTasksDatabase}
+          changeState={props.changeState}
+
         />
       ))}
     </div>

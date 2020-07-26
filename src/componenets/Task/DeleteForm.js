@@ -5,7 +5,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 
 import DialogTitle from "@material-ui/core/DialogTitle";
-import useApplicationData from "../../hooks/useApplicationData.js";
 
 import DeleteIcon from "@material-ui/icons/Delete";
 
@@ -15,18 +14,10 @@ export default function DeleteForm(props) {
   const [weekTask, setWeekTask] = React.useState(null);
   const [error, setError] = React.useState(null);
   const [newTask, setNewTask] = React.useState({});
-  // const {
-  // //   driver,
-  // //   setDriver,
-  // //   tasks,
-  // //   setTasks,
-  // //   week,
-  // //   setWeek,
-  // //   driversData,
-  // //   tasksData,
-  // //   tasksDatabase,
-  // //   setTasksDatabase,
-  // // } = useApplicationData();
+  const {
+    deleteTask,
+  } = require("../../helpers/formSubmitters");
+  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,13 +27,13 @@ export default function DeleteForm(props) {
     "start_time",
     "end_time",
     "title",
-    "desciption",
+    "description",
     "location",
   ];
   // "1": {
-  //   "1": [{ 'day': 'Monday', 'start_time': 10, 'end_time': 16, 'title': 'dropoff', 'desciption': 'smth', 'location': 'london' },
-  //   { 'day': 'Tuesday', 'start_time': 7, 'end_time': 12, 'title': 'other', 'desciption': 'smth', 'location': 'toronto' },
-  //   { 'day': 'Monday', 'start_time': 6, 'end_time': 8, 'title': 'pickup', 'desciption': 'pickup', 'location': 'ottawa' },]
+  //   "1": [{ 'day': 'Monday', 'start_time': 10, 'end_time': 16, 'title': 'dropoff', 'description': 'smth', 'location': 'london' },
+  //   { 'day': 'Tuesday', 'start_time': 7, 'end_time': 12, 'title': 'other', 'description': 'smth', 'location': 'toronto' },
+  //   { 'day': 'Monday', 'start_time': 6, 'end_time': 8, 'title': 'pickup', 'description': 'pickup', 'location': 'ottawa' },]
   // },
   // "2":{"1":[{}, {},]},
   // "3":{"1":{}}
@@ -55,12 +46,10 @@ export default function DeleteForm(props) {
     let taskToDelete = props.tasksDatabase[props.driver["id"]][props.week].findIndex(
       (e) => JSON.stringify(e) === JSON.stringify(props.task)
     );
-    console.log("taskToDelete", taskToDelete);
-    let newTasks = [...props.tasks];
-    newTasks.splice(taskToDelete, 1);
-    props.setTasks(newTasks);
+    deleteTask(props.tasksDatabase, taskToDelete, props.driver, props.week, props.changeState)
+  
     handleClose();
-    //setTasks(...tasks, newTask)
+    
   };
 
   return (

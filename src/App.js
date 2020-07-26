@@ -13,62 +13,8 @@ import useApplicationData from "./hooks/useApplicationData.js";
 import Week from "./componenets/Week";
 
 import { makeStyles } from "@material-ui/core/styles";
-// import AppBar from '@material-ui/core/AppBar';
-// import Toolbar from '@material-ui/core/Toolbar';
-const initialTaskDatalol = {
-  //first key is driver id, second key is week id
-  "1": {
-    "1": [
-      {
-        day: "Monday",
-        start_time: 10,
-        end_time: 16,
-        title: "dropoff",
-        desciption: "smaaaaaaath",
-        location: "london",
-      },
-      {
-        day: "Tuesday",
-        start_time: 7,
-        end_time: 12,
-        title: "other",
-        desciption: "smaaaaaaath",
-        location: "toronto",
-      },
-      {
-        day: "Monday",
-        start_time: 6,
-        end_time: 8,
-        title: "pickup",
-        desciption: "pickupaaaaaaaaa",
-        location: "ottawa",
-      },
-    ],
-    "2": [
-      {
-        day: "Monday",
-        start_time: 10,
-        end_time: 16,
-        title: "dropoff",
-        desciption: "smth",
-        location: "london",
-      },
-    ],
-  },
-  "2": {
-    "1": [
-      {
-        day: "Monday",
-        start_time: 10,
-        end_time: 16,
-        title: "dropoff",
-        desciption: "smth",
-        location: "london",
-      },
-    ],
-  },
-  "3": { "1": [] },
-};
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -93,7 +39,6 @@ function App() {
     weekForward,
     weekBack,
     changeState,
-    tasksData,
     tasksDatabase,
     setTasksDatabase
   } = useApplicationData();
@@ -137,16 +82,16 @@ function App() {
     
   ];
 
-  function addNewTask() {
-    console.log("add new task!");
-  }
+  // function addNewTask() {
+  //   console.log("add new task!");
+  // }
 
-  function onEdit() {
-    console.log("edit!");
-  }
-  function onDelete() {
-    console.log("delete!");
-  }
+  // function onEdit() {
+  //   console.log("edit!");
+  // }
+  // function onDelete() {
+  //   console.log("delete!");
+  // }
 
   return (
     <main>
@@ -172,7 +117,7 @@ function App() {
         </Toolbar>
       </AppBar>
       <div className="newtask">
-        <Form {...{driver, tasksData, tasksDatabase, changeState}} />
+        <Form {...{driver, tasksDatabase, changeState}} />
         
       </div>
       <div className="layout">
@@ -190,15 +135,15 @@ function App() {
                 driver={driver}
                 tasks={tasks}
                 day={day}
-                addNewTask={addNewTask}
+                
                 index={index}
                 key={day}
-                onEdit={onEdit}
-                onDelete={onDelete}
+                
                 tasksDatabase={tasksDatabase}
                 week={week}
                 setTasks={setTasks}
                 setTasksDatabase={setTasksDatabase}
+                changeState={changeState}
 
               />
             </div>))}

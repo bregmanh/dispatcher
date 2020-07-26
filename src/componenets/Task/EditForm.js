@@ -11,85 +11,58 @@ import InputField from "./InputField";
 import TextField from "@material-ui/core/TextField";
 import EditIcon from "@material-ui/icons/Edit";
 
+
 export default function EditForm(props) {
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
-  const [weekTask, setWeekTask] = React.useState(null);
-  const [error, setError] = React.useState(null);
-  const [newTask, setNewTask] = React.useState({});
-  // const {
-  //   driver,
-  //   setDriver,
-  //   tasks,
-  //   setTasks,
-  //   week,
-  //   setWeek,
-  //   driversData,
-  //   tasksData,
-  //   tasksDatabase,
-  //   setTasksDatabase,
-  // } = useApplicationData();
+  const [weekTask, setWeekTask] = React.useState(props.week);
+  const [newTask, setNewTask] = React.useState(null);
+  const {
+    writeTaskToDatabase,
+    createTask,
+  } = require("../../helpers/formSubmitters");
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (e) => {
     setOpen(true);
+    let taskEditIndex = props.tasksDatabase[props.driver["id"]][props.week].findIndex(
+      (e) => JSON.stringify(e) === JSON.stringify(props.task)
+    );
+    setNewTask(props.tasksDatabase[props.driver["id"]][weekTask][taskEditIndex])
   };
   const taksKeys = [
     "day",
     "start_time",
     "end_time",
     "title",
-    "desciption",
+    "description",
     "location",
   ];
-  // "1": {
-  //   "1": [{ 'day': 'Monday', 'start_time': 10, 'end_time': 16, 'title': 'dropoff', 'desciption': 'smth', 'location': 'london' },
-  //   { 'day': 'Tuesday', 'start_time': 7, 'end_time': 12, 'title': 'other', 'desciption': 'smth', 'location': 'toronto' },
-  //   { 'day': 'Monday', 'start_time': 6, 'end_time': 8, 'title': 'pickup', 'desciption': 'pickup', 'location': 'ottawa' },]
-  // },
-  // "2":{"1":[{}, {},]},
-  // "3":{"1":{}}
+
   const handleClose = () => {
     setOpen(false);
+    
   };
+//   const editTask = (e) => {
+    
+    
+// console.log("task edit", taskEdit)
+// let inputId = e.target.id;
+// let inputValue = e.target.value;
+// console.log("input id", inputId)
+// console.log("input value", inputValue)
 
-  const createTask = function (e) {
-    let inputId = e.id;
-    let inputValue = e.value;
+//     taskEdit[inputId] = inputValue;
+//     console.log("new task", taskEdit);
+//     //WET code below: fix later
+//     if (inputId === "start_time" || inputId === "end_time") {
+//       taskEdit[inputId] = Number(inputValue);
+//       setNewTask(taskEdit);
+//     } else {
+//       taskEdit[inputId] = inputValue;
+//       setNewTask(taskEdit);
 
-    //check if the task exists
-    if (
-      props.tasksDatabase[props.driver["id"]][weekTask] &&
-      props.tasksDatabase[props.driver["id"]][weekTask][inputId]
-    ) {
-      const newError = { error: inputId, value: inputValue };
-      setError(newError);
-      console.log("Theres an error");
-    } else {
-      //WET code below: fix later
-      if (inputId === "start_time" || inputId === "end_time") {
-        setNewTask({ ...newTask, [inputId]: Number(inputValue) });
-      } else {
-        setNewTask({ ...newTask, [inputId]: inputValue });
-      }
-    }
-  };
-  const writeTaskToDatabase = function () {
-    //if week exists in the database
-    if (props.tasksDatabase[props.driver["id"]][weekTask]) {
-      //making a copy of the database
-      let temp = { ...props.tasksDatabase };
-      temp[props.driver["id"]][weekTask].push(newTask);
-      props.setTasksDatabase(temp);
-      //if the week doesnt exist in the database
-    } else {
-      let temp = { ...props.tasksDatabase };
-      temp[props.driver["id"]][weekTask] = [newTask];
-      props.setTasksDatabase(temp);
-      //setTasksDatabase({...tasksDatabase[driver["id"]], [weekTask]: [newTask]})
-    }
-    handleClose();
-    //setTasks(...tasks, newTask)
-  };
+//     }
+//   }
 
   return (
     <div>
@@ -117,7 +90,7 @@ export default function EditForm(props) {
             onChange={(e) => setWeekTask(e.target.value)}
           />
           {taksKeys.map((key, index) => (
-            <InputField
+            <TextField
               key={index}
               taskaData={props.tasksData}
               driver={props.driver}
@@ -128,7 +101,7 @@ export default function EditForm(props) {
                 key === "start_time" || key === "end_time" ? "number" : "text"
               }
               defaultValue={props.task[key]}
-              createTask={createTask}
+              onChange={(e) => createTask(e, weekTask, newTask, props.tasksDatabase, props.driver, setNewTask)}
             />
           ))}
         </DialogContent>
@@ -136,7 +109,7 @@ export default function EditForm(props) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={writeTaskToDatabase} color="primary">
+          <Button onClick={() => writeTaskToDatabase(props.tasksDatabase, weekTask, newTask, props.driver, props.changeState, handleClose)} color="primary">
             Submit
           </Button>
         </DialogActions>
