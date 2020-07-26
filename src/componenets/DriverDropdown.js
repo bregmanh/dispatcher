@@ -13,7 +13,9 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+    
   },
+  
 }));
 
 export default function DriverDropdown(props) {
@@ -33,10 +35,10 @@ export default function DriverDropdown(props) {
           labelId="demo-simple-select-required-label"
           id="demo-simple-select-required"
           onChange={handleChange}
-          label={props.driver["name"]}
+          value={props.driver["name"]}
         >
           {props.drivers.map((driver) => (
-            <MenuItem key={driver["id"]} value={driver}>{driver["name"]}</MenuItem>
+            <MenuItem key={driver["id"]} value={driver} label={driver["name"]}>{driver["name"]}</MenuItem>
           ))}
         </Select>
       </FormControl>

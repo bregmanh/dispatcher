@@ -21,7 +21,7 @@ export default function Show(props) {
 
   return (
     <main style={styles} className="task_show">
-      <p style={textStyle}><b>{props.task["title"]}</b></p>
+      <p style={textStyle}><b>{props.task["type"]}</b></p>
       <p style={textStyle}>{props.task["description"]}</p>
       <p style={textStyle}>{props.task["start_time"]} - {props.task["end_time"]}</p>
 

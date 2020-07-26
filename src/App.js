@@ -12,20 +12,9 @@ import useApplicationData from "./hooks/useApplicationData.js";
 
 import Week from "./componenets/Week";
 
-import { makeStyles } from "@material-ui/core/styles";
 
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+
 
 function App() {
   const {
@@ -43,7 +32,7 @@ function App() {
     setTasksDatabase
   } = useApplicationData();
 
-  const classes = useStyles();
+ 
 
   const days = [
     "Sunday",
@@ -82,16 +71,6 @@ function App() {
     
   ];
 
-  // function addNewTask() {
-  //   console.log("add new task!");
-  // }
-
-  // function onEdit() {
-  //   console.log("edit!");
-  // }
-  // function onDelete() {
-  //   console.log("delete!");
-  // }
 
   return (
     <main>

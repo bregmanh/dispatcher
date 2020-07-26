@@ -7,6 +7,19 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+}));
 
 export default function Form({
   driver,
@@ -14,7 +27,7 @@ export default function Form({
   changeState
 }) {
   const {
-    
+
     createTask,
     saveNewTask,
   } = require("../helpers/formSubmitters");
@@ -24,6 +37,13 @@ export default function Form({
   const [weekTask, setWeekTask] = React.useState(null);
   const [newTask, setNewTask] = React.useState({});
 
+  const classes = useStyles();
+  const [taskType, setTaskType] = React.useState('');
+
+  const handleChange = (event) => {
+    setTaskType(event.target.value);
+    createTask(event, weekTask, taskType, newTask, tasksDatabase, driver, setNewTask)
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,7 +52,6 @@ export default function Form({
     "day",
     "start_time",
     "end_time",
-    "title",
     "description",
     "location",
   ];
@@ -41,14 +60,14 @@ export default function Form({
     setOpen(false);
   };
 
-  const submitForm = ()=>{
-    
+  const submitForm = () => {
+
     saveNewTask(tasksDatabase, weekTask, newTask, driver, changeState, handleClose)
     //resetting the inputs in the form
     setWeekTask(null)
     setNewTask({})
   }
-  
+
 
   return (
     <div>
@@ -75,12 +94,23 @@ export default function Form({
               id="week"
               label="Week"
               type="number"
-              maxWidth="md"
               onChange={(e) => setWeekTask(e.target.value)}
               value={weekTask}
               validators={['required']}
             />
-
+            <FormControl required className={classes.formControl}>
+              <InputLabel id="type">Task Type</InputLabel>
+              <Select
+                labelId="type"
+                name="type"
+                value={taskType}
+                onChange={handleChange}
+              >
+                <MenuItem value={"pickup"} id={"type"}>Pickup</MenuItem>
+                <MenuItem value={"dropoff"} id={"type"}>Drop off</MenuItem>
+                <MenuItem value={"other"} id={"type"}>Other</MenuItem>
+              </Select>
+            </FormControl>
             {taksKeys.map((key, index) => (
 
               <TextValidator
@@ -92,7 +122,7 @@ export default function Form({
                 type={key === "start_time" || key === "end_time" ? "number" : "text"}
                 inputProps={key.charAt(0).toUpperCase}
                 value={newTask[key]}
-                onChange={(e) => createTask(e, weekTask, newTask, tasksDatabase, driver, setNewTask)}
+                onChange={(e) => createTask(e, weekTask, taskType, newTask, tasksDatabase, driver, setNewTask)}
                 validators={['required']}
 
               />
@@ -100,11 +130,11 @@ export default function Form({
 
           </DialogContent>
           <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
+            <Button onClick={handleClose} color="primary">
+              Cancel
           </Button>
-          <Button type="submit" color="primary">
-            Submit
+            <Button type="submit" color="primary">
+              Submit
           </Button>
           </DialogActions>
         </ValidatorForm>

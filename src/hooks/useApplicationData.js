@@ -11,36 +11,36 @@ export default function useApplicationData() {
     "1": {
       "1": [
         {
+          type: "dropoff",
           day: "Monday",
           start_time: 10,
           end_time: 16,
-          title: "dropoff",
           description: "smth",
           location: "london",
         },
         {
+          type: "other",
           day: "Tuesday",
           start_time: 7,
           end_time: 12,
-          title: "other",
           description: "smth",
           location: "toronto",
         },
         {
+          type: "pickup",
           day: "Monday",
           start_time: 6,
           end_time: 8,
-          title: "pickup",
           description: "pickup",
           location: "ottawa",
         },
       ],
       "2": [
         {
+          type: "dropoff",
           day: "Monday",
           start_time: 10,
           end_time: 16,
-          title: "dropoff",
           description: "smth",
           location: "london",
         },
@@ -49,10 +49,10 @@ export default function useApplicationData() {
     "2": {
       "1": [
         {
+          type: "dropoff",
           day: "Monday",
           start_time: 10,
           end_time: 16,
-          title: "dropoff",
           description: "smth",
           location: "london",
         },
