@@ -1,5 +1,5 @@
 .task_show {
-  margin-left: 0;
+  margin: 0;
   background-color: #b0c4de;
   border-style: inset;
   border-color: #4b0082;
@@ -9,7 +9,11 @@
  
 }
 .hidden_buttons {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.buttons {
 }
 .task_show:hover {
   background-color: yellow;

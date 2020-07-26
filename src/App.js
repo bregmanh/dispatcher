@@ -94,7 +94,8 @@ function App() {
     weekBack,
     changeState,
     tasksData,
-    tasksDatabase
+    tasksDatabase,
+    setTasksDatabase
   } = useApplicationData();
 
   const classes = useStyles();
@@ -133,7 +134,7 @@ function App() {
     "9pm",
     "10pm",
     "11pm",
-    "12pm",
+    
   ];
 
   function addNewTask() {
@@ -194,6 +195,11 @@ function App() {
                 key={day}
                 onEdit={onEdit}
                 onDelete={onDelete}
+                tasksDatabase={tasksDatabase}
+                week={week}
+                setTasks={setTasks}
+                setTasksDatabase={setTasksDatabase}
+
               />
             </div>))}
         </div>

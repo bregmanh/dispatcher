@@ -17,7 +17,7 @@ export default function Day(props) {
 
   let styles = {
 display: "grid",
-gridTemplateRows: "repeat(24, 15em)",
+gridTemplateRows: "repeat(24, 5em)",
 marginTop: "2em"
     
   };
@@ -31,6 +31,10 @@ marginTop: "2em"
           driver={props.driver}
           onEdit={props.onEdit}
           onDelete={props.onDelete}
+          tasksDatabase={props.tasksDatabase}
+          week={props.week}
+          setTasks={props.setTasks}
+          setTasksDatabase={props.setTasksDatabase}
         />
       ))}
     </div>

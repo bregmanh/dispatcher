@@ -21,16 +21,21 @@ export default function Show(props) {
 
 
   };
+  let textStyle={
+marginTop:"0",
+marginBottom: "0",
+  }
 
   return (
     <main style={styles} className="task_show">
-      <h5>{props.task["title"]}</h5>
-      <p>{props.task["desciption"]}</p>
-      <p>Start: {props.task["start_time"]}</p>
-      <p>End: {props.task["end_time"]}</p>
+      <p style={textStyle}><b>{props.task["title"]}</b></p>
+      <p style={textStyle}>{props.task["desciption"]}</p>
+      <p style={textStyle}>{props.task["start_time"]} - {props.task["end_time"]}</p>
+     
       <div className="hidden_buttons">
-        <EditForm task={props.task} />
-        <DeleteForm task={props.task} />
+        <EditForm task={props.task}  driver={props.driver} tasksDatabase={props.tasksDatabase} week={props.week} setTask={props.setTaks} setTasksDatabase={props.setTasksDatabase}/>
+         <DeleteForm task={props.task} />
+        
       </div>
     </main >
   );

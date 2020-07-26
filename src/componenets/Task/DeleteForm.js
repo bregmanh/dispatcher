@@ -15,18 +15,18 @@ export default function DeleteForm(props) {
   const [weekTask, setWeekTask] = React.useState(null);
   const [error, setError] = React.useState(null);
   const [newTask, setNewTask] = React.useState({});
-  const {
-    driver,
-    setDriver,
-    tasks,
-    setTasks,
-    week,
-    setWeek,
-    driversData,
-    tasksData,
-    tasksDatabase,
-    setTasksDatabase,
-  } = useApplicationData();
+  // const {
+  // //   driver,
+  // //   setDriver,
+  // //   tasks,
+  // //   setTasks,
+  // //   week,
+  // //   setWeek,
+  // //   driversData,
+  // //   tasksData,
+  // //   tasksDatabase,
+  // //   setTasksDatabase,
+  // // } = useApplicationData();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -52,13 +52,13 @@ export default function DeleteForm(props) {
 
   const deleteTaskFromDatabase = function () {
     //if week exists in the database
-    let taskToDelete = tasksDatabase[driver["id"]][week].findIndex(
+    let taskToDelete = props.tasksDatabase[props.driver["id"]][props.week].findIndex(
       (e) => JSON.stringify(e) === JSON.stringify(props.task)
     );
     console.log("taskToDelete", taskToDelete);
-    let newTasks = [...tasks];
+    let newTasks = [...props.tasks];
     newTasks.splice(taskToDelete, 1);
-    setTasks(newTasks);
+    props.setTasks(newTasks);
     handleClose();
     //setTasks(...tasks, newTask)
   };

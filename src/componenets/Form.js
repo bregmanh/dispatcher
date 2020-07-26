@@ -9,19 +9,18 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import useApplicationData from "../hooks/useApplicationData.js";
 import InputField from "./InputField";
 import TextField from "@material-ui/core/TextField";
-const _ = require("lodash");
 
 export default function Form({
   driver,
-  setDriver,
-  tasks,
-  setTasks,
-  week,
-  driversData,
   tasksData,
   tasksDatabase,
   changeState
 }) {
+  const {
+    writeTaskToDatabase,
+    createTask,
+  } = require("../helpers/formSubmitters");
+
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
   const [weekTask, setWeekTask] = React.useState(null);
@@ -61,64 +60,6 @@ export default function Form({
     setOpen(false);
   };
 
-  const createTask = function (e) {
-    console.log(e.target.id, e.target.value)
-    let inputId = e.target.id;
-    let inputValue = e.target.value;
-
-    //check if the task exists
-    if (
-      tasksDatabase[driver["id"]][weekTask] &&
-      tasksDatabase[driver["id"]][weekTask][inputId]
-    ) {
-      const newError = { error: inputId, value: inputValue };
-      setError(newError);
-      console.log("Theres an error");
-    } else {
-      //WET code below: fix later
-      if (inputId === "start_time" || inputId === "end_time") {
-        setNewTask({ ...newTask, [inputId]: Number(inputValue) });
-      } else {
-        setNewTask({ ...newTask, [inputId]: inputValue });
-      }
-    }
-  };
-  const writeTaskToDatabase = function () {
-    //if week exists in the database
-    if (tasksDatabase[driver["id"]][weekTask]) {
-      //making a copy of the database
-      let temp = _.cloneDeep(tasksDatabase);
-      temp[driver["id"]][weekTask].push(newTask);
-      console.log("temp", temp);
-      changeState(temp)
-     }
-    //   //if the week doesnt exist in the database
-    // } else {
-    //   // let temp = { ...tasksDatabase };
-    //   // temp[driver["id"]][weekTask] = [newTask];
-
-    //   // setTasksDatabase(temp);
-
-    //   //setTasksDatabase({...tasksDatabase[driver["id"]], [weekTask]: [newTask]})
-    // }
-
-    // const newTask = {
-    //   day: "Monday",
-    //   start_time: 12,
-    //   end_time: 16,
-    //   title: "dropaaaaaoff",
-    //   desciption: "aaaaaaa",
-    //   location: "londaaaaaon",
-    // }
-    // let temp = _.cloneDeep(tasksDatabase);
-    // temp["1"]["1"].push(newTask)
-    // changeState(prev => ({...prev, lol:"YAS", yas:"LOL"}))
-
-
-    handleClose();
-    //setTasks(...tasks, newTask)
-  };
-
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -141,7 +82,7 @@ export default function Form({
             label="Week"
             type="number"
             maxWidth="md"
-            onChange={(e) => setWeekTask(e.target.value)}
+            onChange={(e) => setWeekTask(e.target.value, driver, changeState, handleClose)}
           />
           {taksKeys.map((key, index) => (
             <TextField
@@ -153,7 +94,7 @@ export default function Form({
               label={key.charAt(0).toUpperCase() + key.slice(1)}
               type={key === "start_time" || key === "end_time" ? "number" : "text"}              
               inputProps={key.charAt(0).toUpperCase}
-              onChange={createTask}
+              onChange={(e)=>createTask(e, weekTask, newTask, tasksDatabase, driver, setNewTask)}
             />
           ))}
         </DialogContent>
@@ -161,7 +102,7 @@ export default function Form({
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={writeTaskToDatabase} color="primary">
+          <Button onClick={()=>writeTaskToDatabase(tasksDatabase, weekTask, newTask, driver, changeState, handleClose)} color="primary">
             Submit
           </Button>
         </DialogActions>
