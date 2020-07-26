@@ -17,18 +17,18 @@ export default function EditForm(props) {
   const [weekTask, setWeekTask] = React.useState(null);
   const [error, setError] = React.useState(null);
   const [newTask, setNewTask] = React.useState({});
-  const {
-    driver,
-    setDriver,
-    tasks,
-    setTasks,
-    week,
-    setWeek,
-    driversData,
-    tasksData,
-    tasksDatabase,
-    setTasksDatabase,
-  } = useApplicationData();
+  // const {
+  //   driver,
+  //   setDriver,
+  //   tasks,
+  //   setTasks,
+  //   week,
+  //   setWeek,
+  //   driversData,
+  //   tasksData,
+  //   tasksDatabase,
+  //   setTasksDatabase,
+  // } = useApplicationData();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -58,8 +58,8 @@ export default function EditForm(props) {
 
     //check if the task exists
     if (
-      tasksDatabase[driver["id"]][weekTask] &&
-      tasksDatabase[driver["id"]][weekTask][inputId]
+      props.tasksDatabase[props.driver["id"]][weekTask] &&
+      props.tasksDatabase[props.driver["id"]][weekTask][inputId]
     ) {
       const newError = { error: inputId, value: inputValue };
       setError(newError);
@@ -75,16 +75,16 @@ export default function EditForm(props) {
   };
   const writeTaskToDatabase = function () {
     //if week exists in the database
-    if (tasksDatabase[driver["id"]][weekTask]) {
+    if (props.tasksDatabase[props.driver["id"]][weekTask]) {
       //making a copy of the database
-      let temp = { ...tasksDatabase };
-      temp[driver["id"]][weekTask].push(newTask);
-      setTasksDatabase(temp);
+      let temp = { ...props.tasksDatabase };
+      temp[props.driver["id"]][weekTask].push(newTask);
+      props.setTasksDatabase(temp);
       //if the week doesnt exist in the database
     } else {
-      let temp = { ...tasksDatabase };
-      temp[driver["id"]][weekTask] = [newTask];
-      setTasksDatabase(temp);
+      let temp = { ...props.tasksDatabase };
+      temp[props.driver["id"]][weekTask] = [newTask];
+      props.setTasksDatabase(temp);
       //setTasksDatabase({...tasksDatabase[driver["id"]], [weekTask]: [newTask]})
     }
     handleClose();
@@ -113,14 +113,14 @@ export default function EditForm(props) {
             label="Week"
             type="number"
             maxWidth="md"
-            defaultValue={week}
+            defaultValue={props.week}
             onChange={(e) => setWeekTask(e.target.value)}
           />
           {taksKeys.map((key, index) => (
             <InputField
               key={index}
-              taskaData={tasksData}
-              driver={driver}
+              taskaData={props.tasksData}
+              driver={props.driver}
               margin="dense"
               id={key}
               label={key.charAt(0).toUpperCase() + key.slice(1)}

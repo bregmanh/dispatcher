@@ -34,7 +34,7 @@ marginBottom: "0",
      
       <div className="hidden_buttons">
         <EditForm task={props.task}  driver={props.driver} tasksDatabase={props.tasksDatabase} week={props.week} setTask={props.setTaks} setTasksDatabase={props.setTasksDatabase}/>
-         <DeleteForm task={props.task} />
+         <DeleteForm task={props.task}  driver={props.driver} tasksDatabase={props.tasksDatabase} week={props.week} setTask={props.setTaks} setTasksDatabase={props.setTasksDatabase} />
         
       </div>
     </main >

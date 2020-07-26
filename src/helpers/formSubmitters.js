@@ -32,9 +32,9 @@ const [conflict, conflictTask, conflictIndex]=[...results]
   if (conflict) {
     if (window.confirm(`There is a conflict. Would you like to override the task with the title: ${conflictTask.title} and description: ${conflictTask.desciption}?`)) {
       //delete conflicting task. passing tasksdatabse, conflicting task, conflictingindex
-      deleteTask(tasksDatabase, conflictIndex, driver, weekTask, changeState)
+      overrideTask(tasksDatabase, conflictIndex, driver, weekTask, changeState, newTask)
 
-        //saveTask(newTask)
+      //saveTask(newTask)
     
 
     }
@@ -99,6 +99,13 @@ function deleteTask(tasksDatabase, conflictIndex, driver, weekTask, changeState)
   let updatedTasksDatabase = _.cloneDeep(tasksDatabase)
   updatedTasksDatabase[driver["id"]][weekTask].splice(conflictIndex, 1);
   console.log("after delete", updatedTasksDatabase)
+
+  changeState(updatedTasksDatabase)
+}
+
+function overrideTask(tasksDatabase, conflictIndex, driver, weekTask, changeState, newTask){
+  let updatedTasksDatabase = _.cloneDeep(tasksDatabase)
+  updatedTasksDatabase[driver["id"]][weekTask][conflictIndex] = newTask;
 
   changeState(updatedTasksDatabase)
 }
