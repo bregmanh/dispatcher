@@ -16,19 +16,16 @@ export default function EditForm(props) {
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
   const [weekTask, setWeekTask] = React.useState(props.week);
-  const [newTask, setNewTask] = React.useState(null);
+  const [newTask, setNewTask] = React.useState({});
   const {
-    writeTaskToDatabase,
     createTask,
+    editTask,
   } = require("../../helpers/formSubmitters");
-
-  const handleClickOpen = (e) => {
-    setOpen(true);
-    let taskEditIndex = props.tasksDatabase[props.driver["id"]][props.week].findIndex(
-      (e) => JSON.stringify(e) === JSON.stringify(props.task)
-    );
-    setNewTask(props.tasksDatabase[props.driver["id"]][weekTask][taskEditIndex])
-  };
+  let taskEditIndex = props.tasksDatabase[props.driver["id"]][props.week].findIndex(
+    (e) => JSON.stringify(e) === JSON.stringify(props.task)
+  );
+  
+ console.log("edit index", taskEditIndex)
   const taksKeys = [
     "day",
     "start_time",
@@ -37,7 +34,11 @@ export default function EditForm(props) {
     "description",
     "location",
   ];
-
+  const handleClickOpen = (e) => {
+    setOpen(true);
+    
+    setNewTask(props.tasksDatabase[props.driver["id"]][weekTask][taskEditIndex])
+  };
   const handleClose = () => {
     setOpen(false);
     
@@ -109,7 +110,7 @@ export default function EditForm(props) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={() => writeTaskToDatabase(props.tasksDatabase, weekTask, newTask, props.driver, props.changeState, handleClose)} color="primary">
+          <Button onClick={() => editTask(props.tasksDatabase, weekTask, newTask, props.driver, props.changeState, handleClose, taskEditIndex)} color="primary">
             Submit
           </Button>
         </DialogActions>

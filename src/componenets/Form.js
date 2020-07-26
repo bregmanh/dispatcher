@@ -14,8 +14,9 @@ export default function Form({
   changeState
 }) {
   const {
-    writeTaskToDatabase,
+    
     createTask,
+    saveNewTask,
   } = require("../helpers/formSubmitters");
 
   const [open, setOpen] = React.useState(false);
@@ -42,7 +43,7 @@ export default function Form({
 
   const submitForm = ()=>{
     
-    writeTaskToDatabase(tasksDatabase, weekTask, newTask, driver, changeState, handleClose)
+    saveNewTask(tasksDatabase, weekTask, newTask, driver, changeState, handleClose)
     //resetting the inputs in the form
     setWeekTask(null)
     setNewTask({})
