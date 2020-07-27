@@ -1,6 +1,6 @@
 const _ = require("lodash");
 
-export function createTask(e, weekTask, taskType, newTask, tasksDatabase, driver, setNewTask) {
+export function createTask(e, weekTask, taskType, newTask, tasksDatabase, driver, setNewTask, dayChosen) {
   console.log("target", e.target)
   let inputId;
   if (e.target.id) {

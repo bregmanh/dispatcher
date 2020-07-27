@@ -16,28 +16,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function CSVDropdown(props) {
   const classes = useStyles();
 
   const [items, setItems] = React.useState(props.items);
 
+  const {csvGenerator } = require("../helpers/csvGenerators");
+
   const handleChange = (event) => {
     setItems(event.target.value);
+    csvGenerator(props.driver,props.tasksDatabase, event.target.value)
+    console.log("function is called!")
   };
 
   return (
     <div>
       <FormControl className={classes.formControl}>
         <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-          Select:
+          Download Schedule:
         </InputLabel>
         <Select
           onChange={handleChange}
           displayEmpty
           className={classes.selectEmpty}
         >
-          {items.map((item) => (
-            <MenuItem value={item} key={item}>{item}</MenuItem>
+          {props.items.map((item) => (
+            <MenuItem value={item} key={item}>{`${item} days`}</MenuItem>
           ))}
         </Select>
       </FormControl>

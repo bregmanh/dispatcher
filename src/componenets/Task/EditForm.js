@@ -22,6 +22,8 @@ export default function EditForm(props) {
   const [weekTask, setWeekTask] = React.useState(props.week);
   const [newTask, setNewTask] = React.useState({});
   const [taskType, setTaskType] = React.useState();
+  const [dayChosen, setDay] = React.useState('');
+
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
@@ -51,17 +53,21 @@ export default function EditForm(props) {
 
     setNewTask(props.tasksDatabase[props.driver["id"]][weekTask][taskEditIndex])
     setTaskType(props.tasksDatabase[props.driver["id"]][weekTask][taskEditIndex]["type"])
+    setDay(props.tasksDatabase[props.driver["id"]][weekTask][taskEditIndex]["day"])
 
   };
   const handleClose = () => {
     setOpen(false);
 
   };
-  const handleChange = (event) => {
+  const handleChangeTask = (event) => {
     setTaskType(event.target.value);
-    createTask(event, weekTask, taskType, newTask, props.tasksDatabase, props.driver, setNewTask)
+    createTask(event, weekTask, taskType, newTask, props.tasksDatabase, props.driver, setNewTask, dayChosen)
   };
- 
+  const handleChangeDay = (event) => {
+    setDay(event.target.value);
+    createTask(event, weekTask, taskType, newTask, props.tasksDatabase, props.driver, setNewTask, dayChosen)
+  };
 
   return (
     <div>
@@ -100,11 +106,29 @@ export default function EditForm(props) {
               labelId="type"
               name="type"
               value={taskType}
-              onChange={handleChange}
+              onChange={handleChangeTask}
             >
               <MenuItem value={"pickup"} id={"type"}>Pickup</MenuItem>
               <MenuItem value={"dropoff"} id={"type"}>Drop off</MenuItem>
               <MenuItem value={"other"} id={"type"}>Other</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl required className={classes.formControl}>
+            <InputLabel id="day">Task Type</InputLabel>
+            <Select
+              labelId="day"
+              name="day"
+              value={dayChosen}
+              onChange={handleChangeTask}
+            >
+               <MenuItem value={"Sunday"} id={"Sunday"}>Sunday</MenuItem>
+                <MenuItem value={"Monday"} id={"Monday"}>Monday</MenuItem>
+                <MenuItem value={"Tuesday"} id={"Tuesday"}>Tuesday</MenuItem>
+                <MenuItem value={"Wednesday"} id={"Wednesday"}>Wednesday</MenuItem>
+                <MenuItem value={"Thursday"} id={"Thursday"}>Thursday</MenuItem>
+                <MenuItem value={"Friday"} id={"Friday"}>Friday</MenuItem>
+                <MenuItem value={"Saturday"} id={"Saturday"}>Saturday</MenuItem>
+
             </Select>
           </FormControl>
           {taksKeys.map((key, index) => (

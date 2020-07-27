@@ -11,6 +11,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import useApplicationData from "./hooks/useApplicationData.js";
 
 import Week from "./componenets/Week";
+import { csvGenerator } from "./helpers/csvGenerators";
 
 
 
@@ -71,7 +72,10 @@ function App() {
     
   ];
 
-
+csvGenerator(driver,
+  tasksDatabase,
+  changeState)
+  
   return (
     <main>
       <AppBar position="static">
@@ -90,7 +94,9 @@ function App() {
           <div className="dropdown">
             <CSVDropdown
               className="dropdown"
-              items={["2 days", "4 days", "6 days"]}
+              items={[2, 4, 7, 14, 28]}
+              driver={driver}
+              tasksDatabase={tasksDatabase}
             />
           </div>
         </Toolbar>

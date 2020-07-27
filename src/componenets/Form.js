@@ -39,17 +39,23 @@ export default function Form({
 
   const classes = useStyles();
   const [taskType, setTaskType] = React.useState('');
+  const [dayChosen, setDay] = React.useState('');
 
-  const handleChange = (event) => {
+
+  const handleChangeTask = (event) => {
     setTaskType(event.target.value);
-    createTask(event, weekTask, taskType, newTask, tasksDatabase, driver, setNewTask)
+    createTask(event, weekTask, taskType, newTask, tasksDatabase, driver, setNewTask, dayChosen)
+  };
+  const handleChangeDay = (event) => {
+    setDay(event.target.value);
+    createTask(event, weekTask, taskType, newTask, tasksDatabase, driver, setNewTask, dayChosen)
   };
 
   const handleClickOpen = () => {
     setOpen(true);
   };
   const taksKeys = [
-    "day",
+    
     "start_time",
     "end_time",
     "description",
@@ -104,11 +110,29 @@ export default function Form({
                 labelId="type"
                 name="type"
                 value={taskType}
-                onChange={handleChange}
+                onChange={handleChangeTask}
               >
                 <MenuItem value={"pickup"} id={"type"}>Pickup</MenuItem>
                 <MenuItem value={"dropoff"} id={"type"}>Drop off</MenuItem>
                 <MenuItem value={"other"} id={"type"}>Other</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl required className={classes.formControl}>
+              <InputLabel id="day">Day</InputLabel>
+              <Select
+                labelId="day"
+                name="day"
+                value={dayChosen}
+                onChange={handleChangeDay}
+              >
+                <MenuItem value={"Sunday"} id={"Sunday"}>Sunday</MenuItem>
+                <MenuItem value={"Monday"} id={"Monday"}>Monday</MenuItem>
+                <MenuItem value={"Tuesday"} id={"Tuesday"}>Tuesday</MenuItem>
+                <MenuItem value={"Wednesday"} id={"Wednesday"}>Wednesday</MenuItem>
+                <MenuItem value={"Thursday"} id={"Thursday"}>Thursday</MenuItem>
+                <MenuItem value={"Friday"} id={"Friday"}>Friday</MenuItem>
+                <MenuItem value={"Saturday"} id={"Saturday"}>Saturday</MenuItem>
+
               </Select>
             </FormControl>
             {taksKeys.map((key, index) => (
