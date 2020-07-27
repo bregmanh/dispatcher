@@ -44,7 +44,8 @@ main {
 
 .topdays {
   background-color: #E6E6FA;
-  border: 1px solid #4b0082
+  border: 1px solid #4b0082;
+  text-align: center;
   
 }
 

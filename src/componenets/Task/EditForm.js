@@ -79,7 +79,7 @@ export default function EditForm(props) {
 
   return (
     <div>
-      <EditIcon onClick={handleClickOpen} />
+      <EditIcon onClick={handleClickOpen} fontSize={"small"}/>
 
       <Dialog
         open={open}

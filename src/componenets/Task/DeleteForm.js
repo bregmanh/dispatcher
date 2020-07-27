@@ -54,7 +54,7 @@ export default function DeleteForm(props) {
 
   return (
     <div>
-      <DeleteIcon onClick={handleClickOpen} />
+      <DeleteIcon onClick={handleClickOpen} fontSize={"small"}/>
 
       <Dialog
         open={open}

@@ -23,10 +23,11 @@ export default function Show(props) {
     <main style={styles} className="task_show">
       <p style={textStyle}><b>{props.task["type"]}</b></p>
       <p style={textStyle}>{props.task["description"]}</p>
+      <p style={textStyle}>{props.task["location"]}</p>
       <p style={textStyle}>{props.task["start_time"]} - {props.task["end_time"]}</p>
 
       <div className="hidden_buttons">
-        <EditForm task={props.task} driver={props.driver} tasksDatabase={props.tasksDatabase} week={props.week} setTask={props.setTaks} setTasksDatabase={props.setTasksDatabase} changeState={props.changeState}/>
+        <EditForm task={props.task} driver={props.driver} tasksDatabase={props.tasksDatabase} week={props.week} setTask={props.setTaks} setTasksDatabase={props.setTasksDatabase} changeState={props.changeState} />
         <DeleteForm task={props.task} driver={props.driver} tasksDatabase={props.tasksDatabase} week={props.week} setTask={props.setTaks} setTasksDatabase={props.setTasksDatabase} changeState={props.changeState} />
       </div>
     </main >
