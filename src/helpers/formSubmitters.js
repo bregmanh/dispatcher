@@ -23,6 +23,7 @@ export function saveNewTask(tasksDatabase, weekTask, newTask, driver, changeStat
   handleClose();
   //check for conflicts, returns: [boolean, conflicting task, conflicting index]
   const results = checkConflicts(tasksDatabase, weekTask, newTask, driver)
+  console.log("results", results)
 
   writeTaskToDatabase(tasksDatabase, weekTask, newTask, driver, changeState, results)
 
@@ -32,15 +33,16 @@ export function editTask(tasksDatabase, weekTask, newTask, driver, changeState, 
   handleClose();
   //check for conflicts, returns: [boolean, conflicting task, conflicting index]
   const results = checkConflicts(tasksDatabase, weekTask, newTask, driver)
+  console.log("edit results", results)
   const conflict = results[0]
   const conflictTask = results[1]
   const conflictIndex = results[2]
-  //if no conflict, write new to database and delete original
-  if (!conflict) {
+  //if no conflict (or if conflict is the same task), write new to database and delete original
+  if (!conflict || conflictIndex === taskEditIndex) {
     overrideTask(tasksDatabase, taskEditIndex, driver, weekTask, changeState, newTask)
   } else {
     //if conflict, override original
-    if (window.confirm(`There is a conflict. Would you like to override the task with the title: ${conflictTask.title} and description: ${conflictTask.description}?`)) {
+    if (window.confirm(`There is a conflict. Would you like to override the task with the title: ${conflictTask.type} and description: ${conflictTask.description}?`)) {
       //delete conflicting task. passing tasksdatabse, conflicting task, conflictingindex
       overrideTask(tasksDatabase, conflictIndex, driver, weekTask, changeState, newTask)
     }
@@ -79,8 +81,7 @@ export function checkConflicts(tasksDatabase, weekTask, newTask, driver) {
   //first checking if week exists
   if (tasksDatabase[driver["id"]][weekTask]) {
     let conflictIndex = tasksDatabase[driver["id"]][weekTask].findIndex(function (task) {
-
-      return (task.day === newTask.day && ((task.start_time <= newTask.end_time && task.start_time <= newTask.start_time) || (task.end_time >= newTask.start_time && task.end_time <= newTask.end_time)))
+      return (task.day === newTask.day && ((task.start_time < newTask.end_time && task.start_time > newTask.start_time) || (task.end_time > newTask.start_time && task.end_time < newTask.end_time)))
     })
 
     if (conflictIndex >= 0) {

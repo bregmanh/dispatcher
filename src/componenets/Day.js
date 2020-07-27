@@ -26,6 +26,7 @@ export default function Day(props) {
   return (
     <div style={styles}>
       {tasksForDay.map((task, index) => (
+        (props.tasksDatabase[props.driver["id"]][props.week] &&(
         <Task
           key={`${task["day"]}_${task["start_time"]}`}
           task={task}
@@ -39,7 +40,7 @@ export default function Day(props) {
           changeState={props.changeState}
 
         />
-      ))}
+       ) )))}
     </div>
   );
 }

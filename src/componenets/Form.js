@@ -55,9 +55,6 @@ export default function Form({
     setOpen(true);
   };
   const taksKeys = [
-    
-    "start_time",
-    "end_time",
     "description",
     "location",
   ];
@@ -72,6 +69,8 @@ export default function Form({
     //resetting the inputs in the form
     setWeekTask(null)
     setNewTask({})
+    setTaskType('')
+    setDay('')
   }
 
 
@@ -102,7 +101,7 @@ export default function Form({
               type="number"
               onChange={(e) => setWeekTask(e.target.value)}
               value={weekTask}
-              validators={['required']}
+              validators={['required', 'minNumber:1', 'maxNumber:52']}
             />
             <FormControl required className={classes.formControl}>
               <InputLabel id="type">Task Type</InputLabel>
@@ -135,6 +134,28 @@ export default function Form({
 
               </Select>
             </FormControl>
+            <TextValidator
+                required
+                key="start_time"
+                margin="dense"
+                id="start_time"
+                label="Start Time (0 to 23)"
+                type="number"
+                value={newTask["start_time"]}
+                onChange={(e) => createTask(e, weekTask, taskType, newTask, tasksDatabase, driver, setNewTask)}
+                validators={['required', 'minNumber:0', 'maxNumber:23']}
+              />
+              <TextValidator
+               required
+               key="end_time"
+               margin="dense"
+               id="end_time"
+               label="End Time (0 to 23)"
+               type="number"
+               value={newTask["end_time"]}
+               onChange={(e) => createTask(e, weekTask, taskType, newTask, tasksDatabase, driver, setNewTask)}
+               validators={['required', 'minNumber:0', 'maxNumber:23']}
+              />
             {taksKeys.map((key, index) => (
 
               <TextValidator
@@ -143,12 +164,11 @@ export default function Form({
                 margin="dense"
                 id={key}
                 label={key.charAt(0).toUpperCase() + key.slice(1)}
-                type={key === "start_time" || key === "end_time" ? "number" : "text"}
+                type="text"
                 inputProps={key.charAt(0).toUpperCase}
                 value={newTask[key]}
                 onChange={(e) => createTask(e, weekTask, taskType, newTask, tasksDatabase, driver, setNewTask)}
                 validators={['required']}
-
               />
             ))}
 

@@ -36,15 +36,16 @@ export default function EditForm(props) {
     createTask,
     editTask,
   } = require("../../helpers/formSubmitters");
-  let taskEditIndex = props.tasksDatabase[props.driver["id"]][props.week].findIndex(
-    (e) => JSON.stringify(e) === JSON.stringify(props.task)
-  );
+
+    let taskEditIndex = props.tasksDatabase[props.driver["id"]][props.week].findIndex(
+      (e) => JSON.stringify(e) === JSON.stringify(props.task)
+    );
+
+  
 
   console.log("edit index", taskEditIndex)
   const taksKeys = [
-    "day",
-    "start_time",
-    "end_time",
+   
     "description",
     "location",
   ];
@@ -69,6 +70,13 @@ export default function EditForm(props) {
     createTask(event, weekTask, taskType, newTask, props.tasksDatabase, props.driver, setNewTask, dayChosen)
   };
 
+  const submitForm = () => {
+
+    editTask(props.tasksDatabase, weekTask, newTask, props.driver, props.changeState, handleClose, taskEditIndex)
+    //resetting the inputs in the form
+  
+  }
+
   return (
     <div>
       <EditIcon onClick={handleClickOpen} />
@@ -78,7 +86,7 @@ export default function EditForm(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       > <ValidatorForm
-      onSubmit={() => editTask(props.tasksDatabase, weekTask, newTask, props.driver, props.changeState, handleClose, taskEditIndex)}
+      onSubmit={submitForm}
     >
         <DialogTitle id="form-dialog-title">Edit the Task</DialogTitle>
         <DialogContent>
@@ -119,7 +127,7 @@ export default function EditForm(props) {
               labelId="day"
               name="day"
               value={dayChosen}
-              onChange={handleChangeTask}
+              onChange={handleChangeDay}
             >
                <MenuItem value={"Sunday"} id={"Sunday"}>Sunday</MenuItem>
                 <MenuItem value={"Monday"} id={"Monday"}>Monday</MenuItem>
@@ -131,6 +139,28 @@ export default function EditForm(props) {
 
             </Select>
           </FormControl>
+          <TextValidator
+                required
+                key="start_time"
+                margin="dense"
+                id="start_time"
+                label="Start Time (0 to 23)"
+                type="number"
+                value={newTask["start_time"]}
+                onChange={(e) => createTask(e, weekTask, taskType, newTask, props.tasksDatabase, props.driver, setNewTask)}
+                validators={['required', 'minNumber:0', 'maxNumber:23']}
+              />
+              <TextValidator
+               required
+               key="end_time"
+               margin="dense"
+               id="end_time"
+               label="End Time (0 to 23)"
+               type="number"
+               value={newTask["end_time"]}
+               onChange={(e) => createTask(e, weekTask, taskType, newTask, props.tasksDatabase, props.driver, setNewTask)}
+               validators={['required', 'minNumber:0', 'maxNumber:23']}
+              />
           {taksKeys.map((key, index) => (
              <TextValidator
              required
