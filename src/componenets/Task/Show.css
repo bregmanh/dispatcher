@@ -16,7 +16,7 @@
 .buttons {
 }
 .task_show:hover {
-  background-color: yellow;
+  background-color: #F0FFFF;
 }
 .task_show:hover + div.hidden_buttons {
   display: block;
