@@ -36,9 +36,10 @@ export default function DriverDropdown(props) {
           id="demo-simple-select-required"
           onChange={handleChange}
           value={props.driver["name"]}
+          renderValue={(value) => `${value}`}
         >
           {props.drivers.map((driver) => (
-            <MenuItem key={driver["id"]} value={driver} label={driver["name"]}>{driver["name"]}</MenuItem>
+            <MenuItem key={driver["id"]} value={driver} >{driver["name"]}</MenuItem>
           ))}
         </Select>
       </FormControl>
