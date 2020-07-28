@@ -29,7 +29,7 @@ export function saveNewTask(tasksDatabase, weekTask, newTask, driver, changeStat
 
 };
 
-export function editTask(tasksDatabase, weekTask, newTask, driver, changeState, handleClose, taskEditIndex) {
+export function editTask(tasksDatabase, weekTask, newTask, driver, changeState, handleClose, taskEditIndex, originalWeek) {
   handleClose();
   //check for conflicts, returns: [boolean, conflicting task, conflicting index]
   const results = checkConflicts(tasksDatabase, weekTask, newTask, driver)
@@ -39,13 +39,13 @@ export function editTask(tasksDatabase, weekTask, newTask, driver, changeState, 
   const conflictIndex = results[2]
   //if no conflict (or if conflict is the same task), write new to database and delete original
   if (!conflict || conflictIndex===taskEditIndex) {
-    overrideTask(tasksDatabase, taskEditIndex, driver, weekTask, changeState, newTask)
+    overrideTask(tasksDatabase, taskEditIndex, driver, weekTask, changeState, newTask, originalWeek)
   } else {
     //if conflict, override original
     if (window.confirm(`There is a conflict. Would you like to override the task with the title: ${conflictTask.type} and description: ${conflictTask.description}?`)) {
       //delete conflicting task. passing tasksdatabse, conflicting task, conflictingindex
       
-      overrideTaskOnEdit(tasksDatabase, conflictIndex,taskEditIndex, driver, weekTask, changeState, newTask)
+      overrideTaskOnEdit(tasksDatabase, conflictIndex,taskEditIndex, driver, weekTask, changeState, newTask, originalWeek)
     }
   }
 
@@ -93,11 +93,7 @@ export function checkConflicts(tasksDatabase, weekTask, newTask, driver) {
   return false;
 
 }
-// function findTask(tasksDatabase, driver, week, taskToFind){
-//   return tasksDatabase[driver["id"]][week].findIndex(
-//     (taskToFind) => JSON.stringify(taskToFind) === JSON.stringify(props.task)
-//   );
-// }
+
 export function deleteTask(tasksDatabase, conflictIndex, driver, weekTask, changeState) {
   let updatedTasksDatabase = _.cloneDeep(tasksDatabase)
   updatedTasksDatabase[driver["id"]][weekTask].splice(conflictIndex, 1);
@@ -105,16 +101,20 @@ export function deleteTask(tasksDatabase, conflictIndex, driver, weekTask, chang
   changeState(updatedTasksDatabase)
 }
 
-export function overrideTask(tasksDatabase, conflictIndex, driver, weekTask, changeState, newTask) {
+export function overrideTask(tasksDatabase, conflictIndex, driver, weekTask, changeState, newTask, originalWeek) {
   let updatedTasksDatabase = _.cloneDeep(tasksDatabase)
   updatedTasksDatabase[driver["id"]][weekTask][conflictIndex] = newTask;
-
+  //if orginal task is passed, means that its an edit
+  if(originalWeek && originalWeek !== weekTask){
+    updatedTasksDatabase[driver["id"]][originalWeek].splice(conflictIndex, 1);
+  }
   changeState(updatedTasksDatabase)
 }
-function overrideTaskOnEdit(tasksDatabase, conflictIndex,taskEditIndex, driver, weekTask, changeState, newTask){
+
+function overrideTaskOnEdit(tasksDatabase, conflictIndex,taskEditIndex, driver, weekTask, changeState, newTask, originalWeek){
   let updatedTasksDatabase = _.cloneDeep(tasksDatabase)
   updatedTasksDatabase[driver["id"]][weekTask][conflictIndex] = newTask;
-  updatedTasksDatabase[driver["id"]][weekTask].splice(taskEditIndex, 1);
+  updatedTasksDatabase[driver["id"]][originalWeek].splice(taskEditIndex, 1);
   changeState(updatedTasksDatabase)
 
 

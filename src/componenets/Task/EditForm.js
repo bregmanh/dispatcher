@@ -20,6 +20,7 @@ export default function EditForm(props) {
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
   const [weekTask, setWeekTask] = React.useState(props.week);
+  const originalWeek = props.week
   const [newTask, setNewTask] = React.useState({});
   const [taskType, setTaskType] = React.useState();
   const [dayChosen, setDay] = React.useState('');
@@ -72,7 +73,7 @@ export default function EditForm(props) {
 
   const submitForm = () => {
 
-    editTask(props.tasksDatabase, weekTask, newTask, props.driver, props.changeState, handleClose, taskEditIndex)
+    editTask(props.tasksDatabase, weekTask, newTask, props.driver, props.changeState, handleClose, taskEditIndex, originalWeek)
     //resetting the inputs in the form
   
   }
