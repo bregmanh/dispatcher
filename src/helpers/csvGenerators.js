@@ -6,7 +6,9 @@ export function csvGenerator(driver, tasksDatabase, input) {
   const daysUse = [];
   let data = [];
   //number of weeks in database for the driver
-  const numOfWeeks = Object.keys(tasksDatabase[driver["id"]]).length;
+  const weeks = Object.keys(tasksDatabase[driver["id"]])
+  console.log("weeks here!", weeks)
+  const numOfWeeks = weeks.length;
   //generate day list to iterate through based on number of weeks
   for (let k = 0; k < numOfWeeks; k++) {
     daysUse.push(...daysOfWeek)
@@ -16,7 +18,7 @@ export function csvGenerator(driver, tasksDatabase, input) {
     let pickupCount = 0;
     let dropoffCount = 0;
     let otherCount = 0;
-    for (let task of tasksDatabase[driver["id"]][Math.floor(i / 8) + 1]) {
+    for (let task of tasksDatabase[driver["id"]][weeks[Math.floor(i / 8)]]) {
       let dayCheck = daysUse.slice(i, i + 1)
       //if the day of task matches the task being iterated
       if (dayCheck.includes(task.day)) {
