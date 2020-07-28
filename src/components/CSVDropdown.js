@@ -5,38 +5,41 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-    
   },
-  
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
-export default function DriverDropdown(props) {
+export default function CSVDropdown(props) {
   const classes = useStyles();
 
+  const [items, setItems] = React.useState(props.items);
+
+  const { csvGenerator } = require("../helpers/csvGenerators");
+
   const handleChange = (event) => {
-    props.setDriver(event.target.value);
+    setItems(event.target.value);
+    csvGenerator(props.driver, props.tasksDatabase, event.target.value);
   };
 
   return (
     <div>
       <FormControl className={classes.formControl}>
         <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-          Select Driver:
+          Download Schedule:
         </InputLabel>
         <Select
-          labelId="demo-simple-select-required-label"
-          id="demo-simple-select-required"
           onChange={handleChange}
-          value={props.driver["name"]}
-          renderValue={(value) => `${value}`}
+          displayEmpty
+          className={classes.selectEmpty}
         >
-          {props.drivers.map((driver) => (
-            <MenuItem key={driver["id"]} value={driver} >{driver["name"]}</MenuItem>
+          {props.items.map((item) => (
+            <MenuItem value={item} key={item}>{`${item} days`}</MenuItem>
           ))}
         </Select>
       </FormControl>

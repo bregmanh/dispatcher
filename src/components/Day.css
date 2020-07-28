@@ -4,7 +4,6 @@
 }
 .container {
   grid-template-rows: 10%;
-  
 }
 .plus_icon {
   display: flex;

@@ -1,16 +1,15 @@
 import React from "react";
 import "./App.css";
-import DriverDropdown from "./componenets/DriverDropdown";
-import CSVDropdown from "./componenets/CSVDropdown";
-import Day from "./componenets/Day";
-import Time from "./componenets/Time";
-import Form from "./componenets/Form";
+import DriverDropdown from "./components/DriverDropdown";
+import CSVDropdown from "./components/CSVDropdown";
+import Day from "./components/Day";
+import Time from "./components/Time";
+import Form from "./components/Form";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-
 import useApplicationData from "./hooks/useApplicationData.js";
 
-import Week from "./componenets/Week";
+import Week from "./components/Week";
 
 function App() {
   const {
@@ -24,7 +23,7 @@ function App() {
     weekBack,
     changeState,
     tasksDatabase,
-    setTasksDatabase
+    setTasksDatabase,
   } = useApplicationData();
 
   const days = [
@@ -61,9 +60,8 @@ function App() {
     "9pm",
     "10pm",
     "11pm",
-    
   ];
-  
+
   return (
     <main>
       <AppBar position="static">
@@ -90,42 +88,37 @@ function App() {
         </Toolbar>
       </AppBar>
       <div className="newtask">
-        <Form {...{driver, tasksDatabase, changeState}} />
-        
+        <Form {...{ driver, tasksDatabase, changeState }} />
       </div>
       <div className="layout">
         <div className="times">
-        <div>
-          {times.map((time, index) => (<Time time={time} key={time} index={index}/>))}
-        </div>
+          <div>
+            {times.map((time, index) => (
+              <Time time={time} key={time} index={index} />
+            ))}
+          </div>
         </div>
         <div className="days">
-
           {days.map((day, index) => (
-            <div className='day'>
+            <div className="day">
               <div className="topdays">{day}</div>
               <Day
                 driver={driver}
                 tasks={tasks}
                 day={day}
-                
                 index={index}
                 key={day}
-                
                 tasksDatabase={tasksDatabase}
                 week={week}
                 setTasks={setTasks}
                 setTasksDatabase={setTasksDatabase}
                 changeState={changeState}
-
               />
-            </div>))}
+            </div>
+          ))}
         </div>
       </div>
-
-
     </main>
-    //take the componeent that diplays the days on the side (make a separate component)
   );
 }
 

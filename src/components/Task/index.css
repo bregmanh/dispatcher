@@ -4,19 +4,17 @@
   border-style: inset;
   border-color: #4b0082;
   text-align: center;
-  
+
   font-size: small;
- 
 }
-.hidden_buttons {
+.buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.buttons {
-}
+
 .task_show:hover {
-  background-color: #F0FFFF;
+  background-color: #f0ffff;
 }
 .task_show:hover + div.hidden_buttons {
   display: block;

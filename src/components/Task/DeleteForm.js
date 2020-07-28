@@ -12,34 +12,35 @@ export default function DeleteForm(props) {
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
 
-  const {
-    deleteTask,
-  } = require("../../helpers/formSubmitters");
-  
+  const { deleteTask } = require("../../helpers/formSubmitters");
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-  
-  
+
   const handleClose = () => {
     setOpen(false);
   };
 
   const deleteTaskFromDatabase = function () {
     //if week exists in the database
-    let taskToDelete = props.tasksDatabase[props.driver["id"]][props.week].findIndex(
-      (e) => JSON.stringify(e) === JSON.stringify(props.task)
+    let taskToDelete = props.tasksDatabase[props.driver["id"]][
+      props.week
+    ].findIndex((e) => JSON.stringify(e) === JSON.stringify(props.task));
+    deleteTask(
+      props.tasksDatabase,
+      taskToDelete,
+      props.driver,
+      props.week,
+      props.changeState
     );
-    deleteTask(props.tasksDatabase, taskToDelete, props.driver, props.week, props.changeState)
-  
+
     handleClose();
-    
   };
 
   return (
     <div>
-      <DeleteIcon onClick={handleClickOpen} fontSize={"small"}/>
+      <DeleteIcon onClick={handleClickOpen} fontSize={"small"} />
 
       <Dialog
         open={open}

@@ -60,7 +60,7 @@ export default function useApplicationData() {
     },
     "3": { "1": [] },
   };
-  
+
   //all tasks
   const [tasksDatabase, setTasksDatabase] = useState(initialTaskData);
   const [driver, setDriver] = useState(driversData[0]);
@@ -79,7 +79,7 @@ export default function useApplicationData() {
       setWeek(week - 1);
     }
   }
-  function changeState(temp){
+  function changeState(temp) {
     setTasksDatabase(temp);
   }
 
@@ -98,6 +98,6 @@ export default function useApplicationData() {
     weekForward,
     weekBack,
     changeState,
-    setTasksDatabase
+    setTasksDatabase,
   };
 }

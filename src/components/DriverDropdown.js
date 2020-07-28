@@ -10,37 +10,32 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
 }));
 
-
-export default function CSVDropdown(props) {
+export default function DriverDropdown(props) {
   const classes = useStyles();
 
-  const [items, setItems] = React.useState(props.items);
-
-  const {csvGenerator } = require("../helpers/csvGenerators");
-
   const handleChange = (event) => {
-    setItems(event.target.value);
-    csvGenerator(props.driver,props.tasksDatabase, event.target.value)
+    props.setDriver(event.target.value);
   };
 
   return (
     <div>
       <FormControl className={classes.formControl}>
         <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-          Download Schedule:
+          Select Driver:
         </InputLabel>
         <Select
+          labelId="demo-simple-select-required-label"
+          id="demo-simple-select-required"
           onChange={handleChange}
-          displayEmpty
-          className={classes.selectEmpty}
+          value={props.driver["name"]}
+          renderValue={(value) => `${value}`}
         >
-          {props.items.map((item) => (
-            <MenuItem value={item} key={item}>{`${item} days`}</MenuItem>
+          {props.drivers.map((driver) => (
+            <MenuItem key={driver["id"]} value={driver}>
+              {driver["name"]}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
