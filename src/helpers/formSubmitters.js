@@ -1,7 +1,6 @@
 const _ = require("lodash");
 
 export function createTask(e, weekTask, taskType, newTask, tasksDatabase, driver, setNewTask, dayChosen) {
-  console.log("target", e.target)
   let inputId;
   if (e.target.id) {
     inputId = e.target.id;
@@ -16,7 +15,6 @@ export function createTask(e, weekTask, taskType, newTask, tasksDatabase, driver
   } else {
     setNewTask({ ...newTask, [inputId]: inputValue });
   }
-
 };
 
 export function saveNewTask(tasksDatabase, weekTask, newTask, driver, changeState, handleClose) {
@@ -91,7 +89,6 @@ export function writeTaskToDatabase(tasksDatabase, weekTask, newTask, driver, ch
       //check the last existing week
       const weeks = Object.keys(updatedTasksDatabase)
       const lastWeek = weeks[weeks.length - 1]
-      console.log("last week", lastWeek)
       for (let i = Number(lastWeek); i < Number(weekTask); i++) {
         updatedTasksDatabase[driver["id"]][i.toString()] = [];
       }
@@ -113,7 +110,6 @@ export function checkConflicts(tasksDatabase, weekTask, newTask, driver) {
       }
       return isConflict
     })
-    console.log("conflictIndex", conflictIndex)
     if (conflictIndex.length >= 1) {
       return [true, conflictTasks, conflictIndex];
     }
@@ -157,7 +153,6 @@ function overrideTaskOnEdit(tasksDatabase, conflictIndex, taskEditIndex, driver,
       //
       const filteredTasks = updatedTasksDatabase[driver["id"]][weekTask].filter((task, index) => { return !conflictIndex.includes(index) })
       filteredTasks.push(newTask)
-      console.log("updated list ", updatedTasksDatabase)
       //push new task
       updatedTasksDatabase[driver["id"]][weekTask] = filteredTasks;
       changeState(updatedTasksDatabase)

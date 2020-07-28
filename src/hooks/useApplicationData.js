@@ -81,18 +81,10 @@ export default function useApplicationData() {
   }
   function changeState(temp){
     setTasksDatabase(temp);
-    
-
-    console.log("temp!", temp)
-
-    console.log("function called!!")
-
   }
 
   useEffect(() => {
     setTasks(tasksDatabase[driver["id"]][week]);
-    // console.log("taksData", tasksDatabase);
-    // console.log("tasks", tasks);
   }, [tasksDatabase, driver, week]);
 
   return {

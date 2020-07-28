@@ -11,7 +11,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import useApplicationData from "./hooks/useApplicationData.js";
 
 import Week from "./componenets/Week";
-import { csvGenerator } from "./helpers/csvGenerators";
 
 function App() {
   const {
@@ -64,10 +63,6 @@ function App() {
     "11pm",
     
   ];
-
-// csvGenerator(driver,
-//   tasksDatabase,
-//   changeState)
   
   return (
     <main>

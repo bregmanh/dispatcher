@@ -7,7 +7,6 @@ export function csvGenerator(driver, tasksDatabase, input) {
   let data = [];
   //number of weeks in database for the driver
   const weeks = Object.keys(tasksDatabase[driver["id"]])
-  console.log("weeks here!", weeks)
   const numOfWeeks = weeks.length;
   //generate day list to iterate through based on number of weeks
   for (let k = 0; k < numOfWeeks; k++) {
@@ -38,29 +37,30 @@ export function csvGenerator(driver, tasksDatabase, input) {
       data.push({ "Time-Frame": `Day ${i + 1}-${i + 1}`, "Pickup": pickupCount, "Dropoff": dropoffCount, "Other": otherCount })
 
   }
-  console.log("data look!", data)
 
   //to get data for every few days
-
   let finalData = [];
-  for (let i = 0; i < 7 * input; i += input) {
+  for (let i = 0; i < data.length; i += input) {
     let pickupCount = 0;
     let dropoffCount = 0;
     let otherCount = 0;
 
     for (let j = i; j < input + i; j++) {
-      if (data[j]["Pickup"] > 0) {
-        pickupCount += data[j]["Pickup"]
+      //data stops existing for certain divisions of time when reaching end of tasks in database
+      if(data[j]){
+        if (data[j]["Pickup"] > 0) {
+          pickupCount += data[j]["Pickup"]
+        }
+        if (data[j]["Dropoff"] > 0) {
+          dropoffCount += data[j]["Dropoff"]
+        }
+        if (data[j]["Other"] > 0) {
+          otherCount += data[j]["Other"]
+        }
       }
-      if (data[j]["Dropoff"] > 0) {
-        dropoffCount += data[j]["Dropoff"]
-      }
-      if (data[j]["Other"] > 0) {
-        otherCount += data[j]["Other"]
-      }
+      
     }
     finalData.push({ "Time-Frame": `Day ${i + 1}-${i + input}`, "Pickup": pickupCount, "Dropoff": dropoffCount, "Other": otherCount })
-
   }
 
   const options = {

@@ -21,7 +21,6 @@ export default function Day(props) {
     
 
   };
-  console.log("keys", props);
   return (
     <div style={styles}>
       {tasksForDay.map((task, index) => (

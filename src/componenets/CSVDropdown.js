@@ -26,7 +26,6 @@ export default function CSVDropdown(props) {
   const handleChange = (event) => {
     setItems(event.target.value);
     csvGenerator(props.driver,props.tasksDatabase, event.target.value)
-    console.log("function is called!")
   };
 
   return (
