@@ -18,22 +18,27 @@ export function csvGenerator(driver, tasksDatabase, input) {
     let pickupCount = 0;
     let dropoffCount = 0;
     let otherCount = 0;
-    for (let task of tasksDatabase[driver["id"]][weeks[Math.floor(i / 8)]]) {
-      let dayCheck = daysUse.slice(i, i + 1)
-      //if the day of task matches the task being iterated
-      if (dayCheck.includes(task.day)) {
-        if (task.type === "pickup") {
-          pickupCount += 1;
-        } else if (task.type === "dropoff") {
-          dropoffCount += 1;
+    //if the week is empty
 
-        } else {
-          otherCount += 1;
+      for (let task of tasksDatabase[driver["id"]][weeks[Math.floor(i / 7)]]) {
+        let dayCheck = daysUse.slice(i, i + 1)
+        //if the day of task matches the task being iterated
+        if (dayCheck.includes(task.day)) {
+          if (task.type === "pickup") {
+            pickupCount += 1;
+          } else if (task.type === "dropoff") {
+            dropoffCount += 1;
+
+          } else {
+            otherCount += 1;
+          }
         }
+      
       }
-    }
-    data.push({ "Time-Frame": `Day ${i + 1}-${i + 1}`, "Pickup": pickupCount, "Dropoff": dropoffCount, "Other": otherCount })
+      data.push({ "Time-Frame": `Day ${i + 1}-${i + 1}`, "Pickup": pickupCount, "Dropoff": dropoffCount, "Other": otherCount })
+
   }
+  console.log("data look!", data)
 
   //to get data for every few days
 
@@ -68,11 +73,11 @@ export function csvGenerator(driver, tasksDatabase, input) {
     useTextFile: false,
     useBom: true,
     useKeysAsHeaders: true,
-    
+
   };
   const csvExporter = new ExportToCsv(options);
   if (input === 2 || input === 4 || input === 7 || input === 14 || input === 28) {
-  
+
     csvExporter.generateCsv(finalData);
   }
 

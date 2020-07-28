@@ -11,9 +11,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 export default function DeleteForm(props) {
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
-  const [weekTask, setWeekTask] = React.useState(null);
-  const [error, setError] = React.useState(null);
-  const [newTask, setNewTask] = React.useState({});
+
   const {
     deleteTask,
   } = require("../../helpers/formSubmitters");
@@ -22,21 +20,8 @@ export default function DeleteForm(props) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  const taksKeys = [
-    "day",
-    "start_time",
-    "end_time",
-    "title",
-    "description",
-    "location",
-  ];
-  // "1": {
-  //   "1": [{ 'day': 'Monday', 'start_time': 10, 'end_time': 16, 'title': 'dropoff', 'description': 'smth', 'location': 'london' },
-  //   { 'day': 'Tuesday', 'start_time': 7, 'end_time': 12, 'title': 'other', 'description': 'smth', 'location': 'toronto' },
-  //   { 'day': 'Monday', 'start_time': 6, 'end_time': 8, 'title': 'pickup', 'description': 'pickup', 'location': 'ottawa' },]
-  // },
-  // "2":{"1":[{}, {},]},
-  // "3":{"1":{}}
+  
+  
   const handleClose = () => {
     setOpen(false);
   };

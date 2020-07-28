@@ -90,11 +90,10 @@ export default function useApplicationData() {
   }
 
   useEffect(() => {
-    console.log("taksData", tasksDatabase);
     setTasks(tasksDatabase[driver["id"]][week]);
     // console.log("taksData", tasksDatabase);
     // console.log("tasks", tasks);
-  }, [tasks, tasksDatabase, driver, week]);
+  }, [tasksDatabase, driver, week]);
 
   return {
     driver,

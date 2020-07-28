@@ -13,10 +13,6 @@ import useApplicationData from "./hooks/useApplicationData.js";
 import Week from "./componenets/Week";
 import { csvGenerator } from "./helpers/csvGenerators";
 
-
-
-
-
 function App() {
   const {
     driver,
@@ -24,7 +20,6 @@ function App() {
     tasks,
     setTasks,
     week,
-    setWeek,
     driversData,
     weekForward,
     weekBack,
@@ -32,8 +27,6 @@ function App() {
     tasksDatabase,
     setTasksDatabase
   } = useApplicationData();
-
- 
 
   const days = [
     "Sunday",
@@ -72,9 +65,9 @@ function App() {
     
   ];
 
-csvGenerator(driver,
-  tasksDatabase,
-  changeState)
+// csvGenerator(driver,
+//   tasksDatabase,
+//   changeState)
   
   return (
     <main>

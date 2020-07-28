@@ -1,7 +1,6 @@
 import React from "react";
 import "./Day.css";
 import Task from "./Task/Show";
-import DayLabels from "./DayLabels";
 
 export default function Day(props) {
   let tasksForDay;
