@@ -101,7 +101,7 @@ export function checkConflicts(tasksDatabase, weekTask, newTask, driver) {
   //first checking if week exists
   if (tasksDatabase[driver["id"]][weekTask]) {
     let conflictIndex = tasksDatabase[driver["id"]][weekTask].findIndex(function (task) {
-      return (task.day === newTask.day && ((task.start_time <= newTask.end_time && task.start_time >= newTask.start_time) || (task.end_time >= newTask.start_time && task.end_time <= newTask.end_time)))
+      return (task.day === newTask.day && ((task.start_time < newTask.end_time && task.start_time >= newTask.start_time) || (task.end_time > newTask.start_time && task.end_time <= newTask.end_time)))
     })
 
     if (conflictIndex >= 0) {
