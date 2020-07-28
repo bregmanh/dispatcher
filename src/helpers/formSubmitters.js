@@ -39,7 +39,11 @@ export function editTask(tasksDatabase, weekTask, newTask, driver, changeState, 
   const conflictIndex = results[2]
   //if no conflict (or if conflict is the same task), write new to database and delete original
   if (!conflict || conflictIndex===taskEditIndex) {
-    overrideTask(tasksDatabase, taskEditIndex, driver, weekTask, changeState, newTask, originalWeek)
+    //deleting task from database
+    let updatedTasksDatabase = _.cloneDeep(tasksDatabase)
+  updatedTasksDatabase[driver["id"]][originalWeek].splice(taskEditIndex, 1);
+  writeTaskToDatabase(updatedTasksDatabase, weekTask, newTask, driver, changeState, results)
+   // overrideTask(tasksDatabase, taskEditIndex, driver, weekTask, changeState, newTask, originalWeek)
   } else {
     //if conflict, override original
     if (window.confirm(`There is a conflict. Would you like to override the task with the title: ${conflictTask.type} and description: ${conflictTask.description}?`)) {
@@ -101,13 +105,22 @@ export function deleteTask(tasksDatabase, conflictIndex, driver, weekTask, chang
   changeState(updatedTasksDatabase)
 }
 
-export function overrideTask(tasksDatabase, conflictIndex, driver, weekTask, changeState, newTask, originalWeek) {
+// export function overrideTask(tasksDatabase, conflictIndex, driver, weekTask, changeState, newTask, originalWeek) {
+//   let updatedTasksDatabase = _.cloneDeep(tasksDatabase)
+//   //if orginal task is passed, means that its an edit
+//   if(originalWeek && originalWeek !== weekTask){
+//     updatedTasksDatabase[driver["id"]][originalWeek][conflictIndex] = newTask;
+//     updatedTasksDatabase[driver["id"]][originalWeek].splice(conflictIndex, 1);
+//   }else{
+//     updatedTasksDatabase[driver["id"]][weekTask][conflictIndex] = newTask;
+
+//   }
+//   changeState(updatedTasksDatabase)
+// }
+export function overrideTask(tasksDatabase, conflictIndex, driver, weekTask, changeState, newTask) {
   let updatedTasksDatabase = _.cloneDeep(tasksDatabase)
   updatedTasksDatabase[driver["id"]][weekTask][conflictIndex] = newTask;
-  //if orginal task is passed, means that its an edit
-  if(originalWeek && originalWeek !== weekTask){
-    updatedTasksDatabase[driver["id"]][originalWeek].splice(conflictIndex, 1);
-  }
+
   changeState(updatedTasksDatabase)
 }
 
