@@ -6,26 +6,34 @@ import DeleteForm from "./DeleteForm";
 export default function Task(props) {
   const task_start = props.task["start_time"];
   const task_end = props.task["end_time"];
-
-  let styles = {
+  let colorStyle;
+  //assigning different background colours depending on the type of task
+  if (props.task["type"] === "pickup") {
+    colorStyle = "#8FBC8F";
+} else if (props.task["type"] === "dropoff") {
+    colorStyle = "#b0c4de";
+} else {
+    colorStyle = "#D3D3D3";
+}
+  const styles = {
     gridRowStart: `${task_start + 1}`,
     gridRowEnd: `${task_end + 1}`,
+    backgroundColor: `${colorStyle}`,
   };
-  let textStyle = {
+  const textStyle = {
     marginTop: "0",
     marginBottom: "0",
   };
 
+
+
   return (
     <main style={styles} className="task_show">
       <p style={textStyle}>
-        <b>{props.task["type"]}</b>
+        <b>{`${props.task["type"].charAt(0).toUpperCase() + props.task["type"].slice(1)} (${props.task["start_time"]}:00 - ${props.task["end_time"]}:00)`}</b>
       </p>
       <p style={textStyle}>{props.task["description"]}</p>
       <p style={textStyle}>{props.task["location"]}</p>
-      <p style={textStyle}>
-        {props.task["start_time"]} - {props.task["end_time"]}
-      </p>
 
       <div className="buttons">
         <EditForm

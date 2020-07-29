@@ -6,7 +6,7 @@ main {
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
-  background-color: #e6e6fa;
+  background-color: #ADD8E6;
   color: black;
 }
 .dropdown {
@@ -35,7 +35,7 @@ main {
 }
 
 .topdays {
-  background-color: #e6e6fa;
+  background-color:  #ADD8E6;
   border: 1px solid #4b0082;
   text-align: center;
 }
