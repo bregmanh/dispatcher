@@ -50,7 +50,7 @@ export function editTask(
 ) {
   handleClose();
   //check for conflicts, returns: [boolean, conflicting task, conflicting index]
-  const [results] = checkConflicts(tasksDatabase, weekTask, newTask, driver);
+  const results = checkConflicts(tasksDatabase, weekTask, newTask, driver);
   const conflict = results[0];
   const conflictTask = results[1]; //array of conflicting tasks
   const conflictIndex = results[2]; //array of conflicting indecies

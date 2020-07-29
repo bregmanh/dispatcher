@@ -113,7 +113,6 @@ export default function EditForm(props) {
               id="week"
               label="Week"
               type="number"
-              InputLabelProps={{ shrink: true }}
               onChange={(e) => setWeekTask(e.target.value)}
               value={weekTask}
               validators={["required"]}
