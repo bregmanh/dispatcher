@@ -4,7 +4,7 @@ An app built with React to help dispatchers manage tasks of their drivers.
 **To see deployed app [click here](https://truck-dispatcher.herokuapp.com/).**
 
 ### How to Use
-After downloading, npm install, npm start (and to test, npm test)
+After downloading, npm install, npm start (and to test, npm test).
 #### Choose a Driver
 Choose a driver to see their tasks by using the dropdown menu in the top-left corner. The default drivers are: Alice, Bob (short for Fierce Bob), and Greg.
 #### View Tasks
