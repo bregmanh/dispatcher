@@ -8,7 +8,7 @@ import Select from "@material-ui/core/Select";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 160,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -31,7 +31,7 @@ export default function CSVDropdown(props) {
     <div>
       <FormControl className={classes.formControl}>
         <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-          Download Schedule:
+         <b>Download Schedule:</b> 
         </InputLabel>
         <Select
           onChange={handleChange}

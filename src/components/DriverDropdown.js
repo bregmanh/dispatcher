@@ -23,7 +23,7 @@ export default function DriverDropdown(props) {
     <div>
       <FormControl className={classes.formControl}>
         <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-          Select Driver:
+          <b>Select Driver:</b>
         </InputLabel>
         <Select
           labelId="demo-simple-select-required-label"
