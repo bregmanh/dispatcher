@@ -93,7 +93,6 @@ export default function NewTaskForm({ driver, tasksDatabase, changeState }) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        {" "}
         <ValidatorForm onSubmit={submitForm}>
           <DialogTitle id="form-dialog-title">Add New Task</DialogTitle>
           <DialogContent>

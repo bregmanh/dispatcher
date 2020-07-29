@@ -98,7 +98,7 @@ export default function EditForm(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        {" "}
+        
         <ValidatorForm onSubmit={submitForm}>
           <DialogTitle id="form-dialog-title">Edit the Task</DialogTitle>
           <DialogContent>
