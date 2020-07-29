@@ -85,14 +85,18 @@ export function editTask(
     );
     sameTask = false;
 
-    //if conflict, override original
+    //if conflict, override original but check first if the conflict includes the same task
   } else {
+    //find the index of the task being edited and remove from conflict tasks
+    const indexIgnore = conflictIndex.findIndex((idx)=>{return idx === taskEditIndex})
+    const filteredConflicts = conflictTask.filter((task, index)=>{return index !== indexIgnore})
+
     let message =
       "There is a conflict. Are yo sure you would like to override the following tasks:";
-    for (let conflict of conflictTask) {
-      message += ` title: ${conflict.type} and description: ${conflict.description} `;
+    for (let i = 0; i < filteredConflicts.length - 1; i++) {
+      message += ` type: ${filteredConflicts[i].type} with description: ${filteredConflicts[i].description} and`;
     }
-    message += "?";
+    message += ` type: ${filteredConflicts[filteredConflicts.length - 1].type} with description: ${filteredConflicts[filteredConflicts.length - 1].description}?`;
     if (window.confirm(message)) {
       //delete conflicting task. passing tasksdatabse, conflicting task, conflictingindex
       overrideTaskOnEdit(
@@ -124,10 +128,10 @@ export function writeTaskToDatabase(
   if (conflict) {
     let message =
       "There is a conflict. Are yo sure you would like to override the following tasks:";
-    for (let conflict of conflictTask) {
-      message += ` title: ${conflict.type} and description: ${conflict.description} `;
+    for (let i = 0; i < conflictTask.length - 1; i++) {
+      message += ` type: ${conflictTask[i].type} with description: ${conflictTask[i].description} and`;
     }
-    message += "?";
+    message += ` type: ${conflictTask[conflictTask.length - 1].type} with description: ${conflictTask[conflictTask.length - 1].description}?`;
     if (window.confirm(message)) {
       //delete conflicting task. passing tasksdatabse, conflicting task, conflictingindex
       overrideTask(
@@ -175,7 +179,7 @@ export function checkConflicts(tasksDatabase, weekTask, newTask, driver) {
       const withinConflict = (task.end_time >= newTask.end_time && task.start_time <= newTask.start_time);
       const isConflict =
         task.day === newTask.day &&
-        ( topConflict|| bottomConflict || withinConflict);
+        (topConflict || bottomConflict || withinConflict);
       if (isConflict) {
         conflictIndex.push(index);
       }
