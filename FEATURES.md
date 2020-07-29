@@ -1,6 +1,6 @@
-# Dispatcher
+## Dispatcher
 
-## Improvements and Bonuses
+### Improvements and Bonuses
 - Deployed the app.
 - Wrote unit tests for the conflict-checker function.
 - Made the tasks be displayed in different colours depending on the type of task (Pickup is green, Dropoff is red, and Other is blue) to improve the user experience.
