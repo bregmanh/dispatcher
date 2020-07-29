@@ -3,7 +3,7 @@ import "./index.css";
 import EditForm from "./EditForm";
 import DeleteForm from "./DeleteForm";
 
-export default function Show(props) {
+export default function Task(props) {
   const task_start = props.task["start_time"];
   const task_end = props.task["end_time"];
 

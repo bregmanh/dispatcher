@@ -6,7 +6,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-
 import EditIcon from "@material-ui/icons/Edit";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -14,14 +13,19 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
 
+const { createTask, editTask } = require("../../helpers/formSubmitters");
+
 export default function EditForm(props) {
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
   const [weekTask, setWeekTask] = React.useState(props.week);
-  const originalWeek = props.week;
+  //state to build a new task as the input from the form comes
   const [newTask, setNewTask] = React.useState({});
   const [taskType, setTaskType] = React.useState();
   const [dayChosen, setDay] = React.useState("");
+  
+  //to keep track of the original week of the task being edited
+  const originalWeek = props.week;
 
   const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -31,14 +35,13 @@ export default function EditForm(props) {
   }));
   const classes = useStyles();
 
-  const { createTask, editTask } = require("../../helpers/formSubmitters");
-
   let taskEditIndex = props.tasksDatabase[props.driver["id"]][
     props.week
   ].findIndex((e) => JSON.stringify(e) === JSON.stringify(props.task));
 
   const taksKeys = ["description", "location"];
-  const handleClickOpen = (e) => {
+
+  const handleClickOpen = () => {
     setOpen(true);
     setNewTask(
       props.tasksDatabase[props.driver["id"]][weekTask][taskEditIndex]
@@ -53,31 +56,16 @@ export default function EditForm(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleChangeTask = (event) => {
     setTaskType(event.target.value);
-    createTask(
-      event,
-      weekTask,
-      taskType,
-      newTask,
-      props.tasksDatabase,
-      props.driver,
-      setNewTask,
-      dayChosen
-    );
+    createTask(event, newTask, setNewTask);
   };
+
   const handleChangeDay = (event) => {
     setDay(event.target.value);
-    createTask(
-      event,
-      weekTask,
-      taskType,
-      newTask,
-      props.tasksDatabase,
-      props.driver,
-      setNewTask,
-      dayChosen
-    );
+
+    createTask(event, newTask, setNewTask);
   };
 
   const submitForm = () => {
@@ -118,7 +106,6 @@ export default function EditForm(props) {
               label="Week"
               type="number"
               InputLabelProps={{ shrink: true }}
-              defaultValue={props.week}
               onChange={(e) => setWeekTask(e.target.value)}
               value={weekTask}
               validators={["required"]}
@@ -182,17 +169,7 @@ export default function EditForm(props) {
               label="Start Time (0 to 23)"
               type="number"
               value={newTask["start_time"]}
-              onChange={(e) =>
-                createTask(
-                  e,
-                  weekTask,
-                  taskType,
-                  newTask,
-                  props.tasksDatabase,
-                  props.driver,
-                  setNewTask
-                )
-              }
+              onChange={(e) => createTask(e, newTask, setNewTask)}
               validators={["required", "minNumber:0", "maxNumber:23"]}
             />
             <TextValidator
@@ -203,24 +180,13 @@ export default function EditForm(props) {
               label="End Time (0 to 23)"
               type="number"
               value={newTask["end_time"]}
-              onChange={(e) =>
-                createTask(
-                  e,
-                  weekTask,
-                  taskType,
-                  newTask,
-                  props.tasksDatabase,
-                  props.driver,
-                  setNewTask
-                )
-              }
+              onChange={(e) => createTask(e, newTask, setNewTask)}
               validators={["required", "minNumber:0", "maxNumber:23"]}
             />
             {taksKeys.map((key, index) => (
               <TextValidator
                 required
                 key={index}
-                taskaData={props.tasksData}
                 driver={props.driver}
                 margin="dense"
                 id={key}
@@ -229,18 +195,7 @@ export default function EditForm(props) {
                   key === "start_time" || key === "end_time" ? "number" : "text"
                 }
                 value={newTask[key]}
-                defaultValue={props.task[key]}
-                onChange={(e) =>
-                  createTask(
-                    e,
-                    weekTask,
-                    taskType,
-                    newTask,
-                    props.tasksDatabase,
-                    props.driver,
-                    setNewTask
-                  )
-                }
+                onChange={(e) => createTask(e, newTask, setNewTask)}
               />
             ))}
           </DialogContent>

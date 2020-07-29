@@ -79,8 +79,8 @@ export default function useApplicationData() {
       setWeek(week - 1);
     }
   }
-  function changeState(temp) {
-    setTasksDatabase(temp);
+  function changeState(newtasks) {
+    setTasksDatabase(newtasks);
   }
 
   useEffect(() => {

@@ -5,14 +5,11 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 
 import DialogTitle from "@material-ui/core/DialogTitle";
-
 import DeleteIcon from "@material-ui/icons/Delete";
+const { deleteTask } = require("../../helpers/formSubmitters");
 
 export default function DeleteForm(props) {
   const [open, setOpen] = React.useState(false);
-  //state to determine which week to write the new task to
-
-  const { deleteTask } = require("../../helpers/formSubmitters");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,14 +31,12 @@ export default function DeleteForm(props) {
       props.week,
       props.changeState
     );
-
     handleClose();
   };
 
   return (
     <div>
       <DeleteIcon onClick={handleClickOpen} fontSize={"small"} />
-
       <Dialog
         open={open}
         onClose={handleClose}

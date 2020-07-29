@@ -1,24 +1,14 @@
 const _ = require("lodash");
 
-export function createTask(
-  e,
-  weekTask,
-  taskType,
-  newTask,
-  tasksDatabase,
-  driver,
-  setNewTask,
-  dayChosen
-) {
+export function createTask(event, newTask, setNewTask) {
   let inputId;
-  if (e.target.id) {
-    inputId = e.target.id;
+  if (event.target.id) {
+    inputId = event.target.id;
   } else {
-    inputId = e.target.name;
+    inputId = event.target.name;
   }
 
-  let inputValue = e.target.value;
-  //WET code below: fix later
+  let inputValue = event.target.value;
   if (inputId === "start_time" || inputId === "end_time") {
     setNewTask({ ...newTask, [inputId]: Number(inputValue) });
   } else {
@@ -35,8 +25,9 @@ export function saveNewTask(
   handleClose
 ) {
   handleClose();
-  //check for conflicts, returns: [boolean, conflicting task, conflicting index]
+  //check for conflicts, returns: [boolean, conflicting task, conflicting index] (synchornous)
   const results = checkConflicts(tasksDatabase, weekTask, newTask, driver);
+
   writeTaskToDatabase(
     tasksDatabase,
     weekTask,
@@ -60,13 +51,14 @@ export function editTask(
   handleClose();
   //check for conflicts, returns: [boolean, conflicting task, conflicting index]
   const results = checkConflicts(tasksDatabase, weekTask, newTask, driver);
-
   const conflict = results[0];
   const conflictTask = results[1]; //array of conflicting tasks
   const conflictIndex = results[2]; //array of conflicting indecies
-  //if no conflict (or if conflict is the same task), write new to database and delete original
+
+  //if no conflict
   if (!conflict) {
     let updatedTasksDatabase = _.cloneDeep(tasksDatabase);
+    //deletes original
     updatedTasksDatabase[driver["id"]][originalWeek].splice(taskEditIndex, 1);
     writeTaskToDatabase(
       updatedTasksDatabase,
@@ -168,6 +160,7 @@ export function writeTaskToDatabase(
     }
   }
 }
+
 export function checkConflicts(tasksDatabase, weekTask, newTask, driver) {
   //findTask(tasksDatabase, driver, weekTask)
   //first checking if week exists
@@ -228,7 +221,7 @@ export function overrideTask(
   changeState(updatedTasksDatabase);
 }
 
-function overrideTaskOnEdit(
+export function overrideTaskOnEdit(
   tasksDatabase,
   conflictIndex,
   taskEditIndex,

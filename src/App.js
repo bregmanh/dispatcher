@@ -100,14 +100,13 @@ function App() {
         </div>
         <div className="days">
           {days.map((day, index) => (
-            <div className="day">
+            <div className="day" key={day}>
               <div className="topdays">{day}</div>
               <Day
                 driver={driver}
                 tasks={tasks}
                 day={day}
                 index={index}
-                key={day}
                 tasksDatabase={tasksDatabase}
                 week={week}
                 setTasks={setTasks}

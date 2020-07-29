@@ -12,6 +12,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
+const { createTask, saveNewTask } = require("../helpers/formSubmitters");
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -20,42 +22,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Form({ driver, tasksDatabase, changeState }) {
-  const { createTask, saveNewTask } = require("../helpers/formSubmitters");
-
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
   const [weekTask, setWeekTask] = React.useState(null);
   const [newTask, setNewTask] = React.useState({});
-
-  const classes = useStyles();
   const [taskType, setTaskType] = React.useState("");
   const [dayChosen, setDay] = React.useState("");
 
+  const classes = useStyles();
+
   const handleChangeTask = (event) => {
     setTaskType(event.target.value);
-    createTask(
-      event,
-      weekTask,
-      taskType,
-      newTask,
-      tasksDatabase,
-      driver,
-      setNewTask,
-      dayChosen
-    );
+    createTask(event, newTask, setNewTask);
   };
+
   const handleChangeDay = (event) => {
     setDay(event.target.value);
-    createTask(
-      event,
-      weekTask,
-      taskType,
-      newTask,
-      tasksDatabase,
-      driver,
-      setNewTask,
-      dayChosen
-    );
+    createTask(event, newTask, setNewTask);
   };
 
   const handleClickOpen = () => {
@@ -171,17 +154,7 @@ export default function Form({ driver, tasksDatabase, changeState }) {
               label="Start Time (0 to 23)"
               type="number"
               value={newTask["start_time"]}
-              onChange={(e) =>
-                createTask(
-                  e,
-                  weekTask,
-                  taskType,
-                  newTask,
-                  tasksDatabase,
-                  driver,
-                  setNewTask
-                )
-              }
+              onChange={(e) => createTask(e, newTask, setNewTask)}
               validators={["required", "minNumber:0", "maxNumber:23"]}
             />
             <TextValidator
@@ -192,17 +165,7 @@ export default function Form({ driver, tasksDatabase, changeState }) {
               label="End Time (0 to 23)"
               type="number"
               value={newTask["end_time"]}
-              onChange={(e) =>
-                createTask(
-                  e,
-                  weekTask,
-                  taskType,
-                  newTask,
-                  tasksDatabase,
-                  driver,
-                  setNewTask
-                )
-              }
+              onChange={(e) => createTask(e, newTask, setNewTask)}
               validators={["required", "minNumber:0", "maxNumber:23"]}
             />
             {taksKeys.map((key, index) => (
@@ -215,17 +178,7 @@ export default function Form({ driver, tasksDatabase, changeState }) {
                 type="text"
                 inputProps={key.charAt(0).toUpperCase}
                 value={newTask[key]}
-                onChange={(e) =>
-                  createTask(
-                    e,
-                    weekTask,
-                    taskType,
-                    newTask,
-                    tasksDatabase,
-                    driver,
-                    setNewTask
-                  )
-                }
+                onChange={(e) => createTask(e, newTask, setNewTask)}
                 validators={["required"]}
               />
             ))}
