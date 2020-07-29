@@ -112,7 +112,7 @@ export default function EditForm(props) {
               type="number"
               onChange={(e) => setWeekTask(e.target.value)}
               value={weekTask}
-              validators={["required"]}
+              validators={["required", "minNumber:1", "maxNumber:52"]}
             />
             <FormControl required className={classes.formControl}>
               <InputLabel id="type">Task Type</InputLabel>
@@ -180,7 +180,7 @@ export default function EditForm(props) {
               key="end_time"
               margin="dense"
               id="end_time"
-              label="End Time (0 to 24)"
+              label="End Time (Start to 24)"
               type="number"
               value={newTask["end_time"] || ""}
               onChange={(e) => createTask(e, newTask, setNewTask)}
