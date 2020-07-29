@@ -92,20 +92,17 @@ export default function EditForm(props) {
   return (
     <div>
       <EditIcon onClick={handleClickOpen} fontSize={"small"} />
-
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        
         <ValidatorForm onSubmit={submitForm}>
           <DialogTitle id="form-dialog-title">Edit the Task</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Please edit the contents of the task.
             </DialogContentText>
-
             <TextValidator
               required
               autoFocus
@@ -117,7 +114,6 @@ export default function EditForm(props) {
               value={weekTask}
               validators={["required"]}
             />
-
             <FormControl required className={classes.formControl}>
               <InputLabel id="type">Task Type</InputLabel>
               <Select

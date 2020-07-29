@@ -11,9 +11,9 @@ export default function Task(props) {
   if (props.task["type"] === "pickup") {
     colorStyle = "#8FBC8F";
 } else if (props.task["type"] === "dropoff") {
-    colorStyle = "#b0c4de";
+    colorStyle = "#BC8F8F";
 } else {
-    colorStyle = "#D3D3D3";
+    colorStyle = "#b0c4de";
 }
   const styles = {
     gridRowStart: `${task_start + 1}`,
