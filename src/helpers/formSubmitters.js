@@ -50,7 +50,7 @@ export function editTask(
 ) {
   handleClose();
   //check for conflicts, returns: [boolean, conflicting task, conflicting index]
-  const results = checkConflicts(tasksDatabase, weekTask, newTask, driver);
+  const [results] = checkConflicts(tasksDatabase, weekTask, newTask, driver);
   const conflict = results[0];
   const conflictTask = results[1]; //array of conflicting tasks
   const conflictIndex = results[2]; //array of conflicting indecies
@@ -170,12 +170,12 @@ export function checkConflicts(tasksDatabase, weekTask, newTask, driver) {
       task,
       index
     ) {
+      const topConflict = (task.start_time < newTask.end_time && task.start_time >= newTask.start_time);
+      const bottomConflict = (task.end_time > newTask.start_time && task.end_time <= newTask.end_time);
+      const withinConflict = (task.end_time >= newTask.end_time && task.start_time <= newTask.start_time);
       const isConflict =
         task.day === newTask.day &&
-        ((task.start_time < newTask.end_time &&
-          task.start_time >= newTask.start_time) ||
-          (task.end_time > newTask.start_time &&
-            task.end_time <= newTask.end_time));
+        ( topConflict|| bottomConflict || withinConflict);
       if (isConflict) {
         conflictIndex.push(index);
       }

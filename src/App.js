@@ -4,7 +4,7 @@ import DriverDropdown from "./components/DriverDropdown";
 import CSVDropdown from "./components/CSVDropdown";
 import Day from "./components/Day";
 import Time from "./components/Time";
-import Form from "./components/Form";
+import NewTaskForm from "./components/NewTaskForm";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import useApplicationData from "./hooks/useApplicationData.js";
@@ -88,7 +88,7 @@ function App() {
         </Toolbar>
       </AppBar>
       <div className="newtask">
-        <Form {...{ driver, tasksDatabase, changeState }} />
+        <NewTaskForm {...{ driver, tasksDatabase, changeState }} />
       </div>
       <div className="layout">
         <div className="times">
@@ -116,7 +116,9 @@ function App() {
             </div>
           ))}
         </div>
+       
       </div>
+      
     </main>
   );
 }

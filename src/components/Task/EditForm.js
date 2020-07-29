@@ -81,6 +81,14 @@ export default function EditForm(props) {
     );
   };
 
+   //custom validation rule to ensure end time is greater than start time
+   ValidatorForm.addValidationRule('greaterThanStart', (value) => {
+    if (value <= newTask["start_time"]) {
+      return false;
+    }
+    return true;
+  });
+
   return (
     <div>
       <EditIcon onClick={handleClickOpen} fontSize={"small"} />
@@ -168,7 +176,7 @@ export default function EditForm(props) {
               id="start_time"
               label="Start Time (0 to 23)"
               type="number"
-              value={newTask["start_time"] || ""}
+              value={newTask["start_time"]}
               onChange={(e) => createTask(e, newTask, setNewTask)}
               validators={["required", "minNumber:0", "maxNumber:23"]}
             />
@@ -177,11 +185,11 @@ export default function EditForm(props) {
               key="end_time"
               margin="dense"
               id="end_time"
-              label="End Time (0 to 23)"
+              label="End Time (0 to 24)"
               type="number"
               value={newTask["end_time"] || ""}
               onChange={(e) => createTask(e, newTask, setNewTask)}
-              validators={["required", "minNumber:0", "maxNumber:23"]}
+              validators={["required", "greaterThanStart", "maxNumber:24"]}
             />
             {taksKeys.map((key, index) => (
               <TextValidator

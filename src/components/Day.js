@@ -17,6 +17,7 @@ export default function Day(props) {
     display: "grid",
     gridTemplateRows: "repeat(24, 5em)",
     marginTop: "2em",
+
   };
   return (
     <div style={styles}>
