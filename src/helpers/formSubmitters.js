@@ -70,7 +70,7 @@ export function editTask(
     );
 
     //if conflict is only the task itself, treat is as if no conflict
-  } else if (conflictIndex.length === 1 && conflictIndex === taskEditIndex) {
+  } else if (conflictIndex.length === 1 && conflictIndex[0] === taskEditIndex) {
     let sameTask = true;
     overrideTaskOnEdit(
       tasksDatabase,

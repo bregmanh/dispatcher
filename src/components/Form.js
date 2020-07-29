@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Form({ driver, tasksDatabase, changeState }) {
   const [open, setOpen] = React.useState(false);
   //state to determine which week to write the new task to
-  const [weekTask, setWeekTask] = React.useState(null);
+  const [weekTask, setWeekTask] = React.useState(undefined);
   const [newTask, setNewTask] = React.useState({});
   const [taskType, setTaskType] = React.useState("");
   const [dayChosen, setDay] = React.useState("");
@@ -93,7 +93,7 @@ export default function Form({ driver, tasksDatabase, changeState }) {
               label="Week"
               type="number"
               onChange={(e) => setWeekTask(e.target.value)}
-              value={weekTask}
+              value={weekTask || ""}
               validators={["required", "minNumber:1", "maxNumber:52"]}
             />
             <FormControl required className={classes.formControl}>
@@ -153,7 +153,7 @@ export default function Form({ driver, tasksDatabase, changeState }) {
               id="start_time"
               label="Start Time (0 to 23)"
               type="number"
-              value={newTask["start_time"]}
+              value={newTask["start_time"] || ""}
               onChange={(e) => createTask(e, newTask, setNewTask)}
               validators={["required", "minNumber:0", "maxNumber:23"]}
             />
@@ -164,7 +164,7 @@ export default function Form({ driver, tasksDatabase, changeState }) {
               id="end_time"
               label="End Time (0 to 23)"
               type="number"
-              value={newTask["end_time"]}
+              value={newTask["end_time"] || ""}
               onChange={(e) => createTask(e, newTask, setNewTask)}
               validators={["required", "minNumber:0", "maxNumber:23"]}
             />
@@ -176,8 +176,7 @@ export default function Form({ driver, tasksDatabase, changeState }) {
                 id={key}
                 label={key.charAt(0).toUpperCase() + key.slice(1)}
                 type="text"
-                inputProps={key.charAt(0).toUpperCase}
-                value={newTask[key]}
+                value={newTask[key] || ""}
                 onChange={(e) => createTask(e, newTask, setNewTask)}
                 validators={["required"]}
               />

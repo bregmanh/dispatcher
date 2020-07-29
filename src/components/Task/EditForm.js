@@ -168,7 +168,7 @@ export default function EditForm(props) {
               id="start_time"
               label="Start Time (0 to 23)"
               type="number"
-              value={newTask["start_time"]}
+              value={newTask["start_time"] || ""}
               onChange={(e) => createTask(e, newTask, setNewTask)}
               validators={["required", "minNumber:0", "maxNumber:23"]}
             />
@@ -179,7 +179,7 @@ export default function EditForm(props) {
               id="end_time"
               label="End Time (0 to 23)"
               type="number"
-              value={newTask["end_time"]}
+              value={newTask["end_time"] || ""}
               onChange={(e) => createTask(e, newTask, setNewTask)}
               validators={["required", "minNumber:0", "maxNumber:23"]}
             />
@@ -194,7 +194,7 @@ export default function EditForm(props) {
                 type={
                   key === "start_time" || key === "end_time" ? "number" : "text"
                 }
-                value={newTask[key]}
+                value={newTask[key] || ""}
                 onChange={(e) => createTask(e, newTask, setNewTask)}
               />
             ))}

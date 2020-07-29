@@ -15,7 +15,7 @@ export default function useApplicationData() {
           day: "Monday",
           start_time: 10,
           end_time: 16,
-          description: "smth",
+          description: "container #3",
           location: "london",
         },
         {
@@ -23,7 +23,7 @@ export default function useApplicationData() {
           day: "Tuesday",
           start_time: 7,
           end_time: 12,
-          description: "smth",
+          description: "container #2",
           location: "toronto",
         },
         {
@@ -31,7 +31,7 @@ export default function useApplicationData() {
           day: "Monday",
           start_time: 6,
           end_time: 8,
-          description: "pickup",
+          description: "container #300",
           location: "ottawa",
         },
       ],
