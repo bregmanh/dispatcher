@@ -179,7 +179,7 @@ export default function NewTaskForm({ driver, tasksDatabase, changeState }) {
               key="end_time"
               margin="dense"
               id="end_time"
-              label="End Time (0 to 23)"
+              label="End Time (0 to 24)"
               type="number"
               value={newTask["end_time"] || ""}
               onChange={(e) => createTask(e, newTask, setNewTask)}
