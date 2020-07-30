@@ -14,6 +14,6 @@
 
 #### Side Note
 
-Please note that it was challenging to manage full time bootcamp work and the Dispatcher project at the same time. But if I had a bit more time, the first things I would do is incorporate more testing (integration and End-to-End using Cypress), handle conflicts more gracefully by suggesting available time slots for the same day, and refactor my code to be more modular and testable with unit tests.
+Please note that it was challenging to manage full time bootcamp work and the Dispatcher project at the same time. But if I had a bit more time, the first things I would do is incorporate more testing (integration and End-to-End using Cypress), handle conflicts more gracefully by suggesting available time slots for the same day, and refactor my code to be more DRY, modular and testable with unit tests.
 
 Thank you for your consideration and I am really hoping that this project shows that I am capable of learning quickly and working hard (I have never used React before my bootcamp).
