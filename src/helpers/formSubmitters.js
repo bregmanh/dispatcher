@@ -54,6 +54,8 @@ export function editTask(
   const conflict = results[0];
   const conflictTask = results[1]; //array of conflicting tasks
   const conflictIndex = results[2]; //array of conflicting indecies
+  console.log("original week", originalWeek)
+  console.log("conflict week", weekTask)
 
   //if no conflict
   if (!conflict) {
@@ -70,7 +72,7 @@ export function editTask(
     );
 
     //if conflict is only the task itself, treat is as if no conflict
-  } else if (conflictIndex.length === 1 && conflictIndex[0] === taskEditIndex) {
+  } else if (conflictIndex.length === 1 && conflictIndex[0] === taskEditIndex && Number(originalWeek) === Number(weekTask)) {
     let sameTask = true;
     overrideTaskOnEdit(
       tasksDatabase,
@@ -88,8 +90,14 @@ export function editTask(
     //if conflict, override original but check first if the conflict includes the same task
   } else {
     //find the index of the task being edited and remove from conflict tasks
-    const indexIgnore = conflictIndex.findIndex((idx)=>{return idx === taskEditIndex})
-    const filteredConflicts = conflictTask.filter((task, index)=>{return index !== indexIgnore})
+    let filteredConflicts;
+    if(Number(originalWeek) === Number(weekTask)){
+
+      const indexIgnore = conflictIndex.findIndex((idx)=>{return idx === taskEditIndex})
+      filteredConflicts = conflictTask.filter((task, index)=>{return index !== indexIgnore})
+    }else{
+      filteredConflicts = conflictTask;
+    }
 
     let message =
       "There is a conflict. Are yo sure you would like to override the following tasks:";

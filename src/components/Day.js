@@ -25,7 +25,7 @@ export default function Day(props) {
         (task, index) =>
           props.tasksDatabase[props.driver["id"]][props.week] && (
             <Task
-              key={`${task["day"]}_${task["start_time"]}`}
+              key={`${props.tasksDatabase[props.driver["id"]][props.week]}_${task["day"]}_${task["start_time"]}`}
               task={task}
               driver={props.driver}
               onEdit={props.onEdit}
