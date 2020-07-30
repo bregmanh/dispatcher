@@ -31,7 +31,7 @@ export default function CSVDropdown(props) {
     <div>
       <FormControl className={classes.formControl}>
         <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-         <b>Download Schedule:</b> 
+          <b>Download Schedule:</b>
         </InputLabel>
         <Select
           onChange={handleChange}

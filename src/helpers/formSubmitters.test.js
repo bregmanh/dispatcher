@@ -1,6 +1,4 @@
-import {
-  checkConflicts
-} from "./formSubmitters";
+import { checkConflicts } from "./formSubmitters";
 
 const driver = { id: "1", name: "Alice" };
 const week = 1;
@@ -32,10 +30,10 @@ const tasksData = {
         location: "ottawa",
       },
     ],
-  }
+  },
 };
 
-describe('conflict checker function returns the correct results', () => {
+describe("conflict checker function returns the correct results", () => {
   test("should flag conflict when new task (same week) overlaps from bottom of one existing task", () => {
     const newTask = {
       type: "dropoff",
@@ -44,17 +42,24 @@ describe('conflict checker function returns the correct results', () => {
       end_time: 15,
       description: "container #3",
       location: "london",
-    }
-    const [conflict, conflictTask, conflictIndex] = checkConflicts(tasksData, week, newTask, driver);
+    };
+    const [conflict, conflictTask, conflictIndex] = checkConflicts(
+      tasksData,
+      week,
+      newTask,
+      driver
+    );
     expect(conflict).toBe(true);
-    expect(conflictTask).toEqual([{
-      type: "dropoff",
-      day: "Monday",
-      start_time: 10,
-      end_time: 16,
-      description: "container #3",
-      location: "london",
-    }]);
+    expect(conflictTask).toEqual([
+      {
+        type: "dropoff",
+        day: "Monday",
+        start_time: 10,
+        end_time: 16,
+        description: "container #3",
+        location: "london",
+      },
+    ]);
     expect(conflictIndex).toEqual([0]);
   });
 
@@ -66,17 +71,24 @@ describe('conflict checker function returns the correct results', () => {
       end_time: 17,
       description: "container #3",
       location: "london",
-    }
-    const [conflict, conflictTask, conflictIndex] = checkConflicts(tasksData, week, newTask, driver);
+    };
+    const [conflict, conflictTask, conflictIndex] = checkConflicts(
+      tasksData,
+      week,
+      newTask,
+      driver
+    );
     expect(conflict).toBe(true);
-    expect(conflictTask).toEqual([{
-      type: "dropoff",
-      day: "Monday",
-      start_time: 10,
-      end_time: 16,
-      description: "container #3",
-      location: "london",
-    }]);
+    expect(conflictTask).toEqual([
+      {
+        type: "dropoff",
+        day: "Monday",
+        start_time: 10,
+        end_time: 16,
+        description: "container #3",
+        location: "london",
+      },
+    ]);
     expect(conflictIndex).toEqual([0]);
   });
 
@@ -88,17 +100,24 @@ describe('conflict checker function returns the correct results', () => {
       end_time: 16,
       description: "container #3",
       location: "london",
-    }
-    const [conflict, conflictTask, conflictIndex] = checkConflicts(tasksData, week, newTask, driver);
+    };
+    const [conflict, conflictTask, conflictIndex] = checkConflicts(
+      tasksData,
+      week,
+      newTask,
+      driver
+    );
     expect(conflict).toBe(true);
-    expect(conflictTask).toEqual([{
-      type: "dropoff",
-      day: "Monday",
-      start_time: 10,
-      end_time: 16,
-      description: "container #3",
-      location: "london",
-    }]);
+    expect(conflictTask).toEqual([
+      {
+        type: "dropoff",
+        day: "Monday",
+        start_time: 10,
+        end_time: 16,
+        description: "container #3",
+        location: "london",
+      },
+    ]);
     expect(conflictIndex).toEqual([0]);
   });
 
@@ -110,24 +129,32 @@ describe('conflict checker function returns the correct results', () => {
       end_time: 16,
       description: "container #3",
       location: "london",
-    }
-    const [conflict, conflictTask, conflictIndex] = checkConflicts(tasksData, week, newTask, driver);
+    };
+    const [conflict, conflictTask, conflictIndex] = checkConflicts(
+      tasksData,
+      week,
+      newTask,
+      driver
+    );
     expect(conflict).toBe(true);
-    expect(conflictTask).toEqual([{
-      type: "dropoff",
-      day: "Monday",
-      start_time: 10,
-      end_time: 16,
-      description: "container #3",
-      location: "london",
-    }, {
-      type: "pickup",
-      day: "Monday",
-      start_time: 6,
-      end_time: 8,
-      description: "container #300",
-      location: "ottawa",
-    }]);
+    expect(conflictTask).toEqual([
+      {
+        type: "dropoff",
+        day: "Monday",
+        start_time: 10,
+        end_time: 16,
+        description: "container #3",
+        location: "london",
+      },
+      {
+        type: "pickup",
+        day: "Monday",
+        start_time: 6,
+        end_time: 8,
+        description: "container #300",
+        location: "ottawa",
+      },
+    ]);
     expect(conflictIndex).toEqual([0, 2]);
   });
 
@@ -139,7 +166,7 @@ describe('conflict checker function returns the correct results', () => {
       end_time: 10,
       description: "container #3",
       location: "london",
-    }
+    };
     const conflict = checkConflicts(tasksData, week, newTask, driver);
     expect(conflict).toBe(false);
   });

@@ -70,7 +70,11 @@ export function editTask(
     );
 
     //if conflict is only the task itself, treat is as if no conflict
-  } else if (conflictIndex.length === 1 && conflictIndex[0] === taskEditIndex && Number(originalWeek) === Number(weekTask)) {
+  } else if (
+    conflictIndex.length === 1 &&
+    conflictIndex[0] === taskEditIndex &&
+    Number(originalWeek) === Number(weekTask)
+  ) {
     let sameTask = true;
     overrideTaskOnEdit(
       tasksDatabase,
@@ -89,11 +93,14 @@ export function editTask(
   } else {
     //find the index of the task being edited and remove from conflict tasks (if the same week)
     let filteredConflicts;
-    if(Number(originalWeek) === Number(weekTask)){
-
-      const indexIgnore = conflictIndex.findIndex((idx)=>{return idx === taskEditIndex})
-      filteredConflicts = conflictTask.filter((task, index)=>{return index !== indexIgnore})
-    }else{
+    if (Number(originalWeek) === Number(weekTask)) {
+      const indexIgnore = conflictIndex.findIndex((idx) => {
+        return idx === taskEditIndex;
+      });
+      filteredConflicts = conflictTask.filter((task, index) => {
+        return index !== indexIgnore;
+      });
+    } else {
       filteredConflicts = conflictTask;
     }
 
@@ -102,7 +109,11 @@ export function editTask(
     for (let i = 0; i < filteredConflicts.length - 1; i++) {
       message += ` type: ${filteredConflicts[i].type} with description: ${filteredConflicts[i].description} and`;
     }
-    message += ` type: ${filteredConflicts[filteredConflicts.length - 1].type} with description: ${filteredConflicts[filteredConflicts.length - 1].description}?`;
+    message += ` type: ${
+      filteredConflicts[filteredConflicts.length - 1].type
+    } with description: ${
+      filteredConflicts[filteredConflicts.length - 1].description
+    }?`;
     if (window.confirm(message)) {
       //delete conflicting task. passing tasksdatabse, conflicting task, conflictingindex
       overrideTaskOnEdit(
@@ -137,7 +148,9 @@ export function writeTaskToDatabase(
     for (let i = 0; i < conflictTask.length - 1; i++) {
       message += ` type: ${conflictTask[i].type} with description: ${conflictTask[i].description} and`;
     }
-    message += ` type: ${conflictTask[conflictTask.length - 1].type} with description: ${conflictTask[conflictTask.length - 1].description}?`;
+    message += ` type: ${
+      conflictTask[conflictTask.length - 1].type
+    } with description: ${conflictTask[conflictTask.length - 1].description}?`;
     if (window.confirm(message)) {
       //delete conflicting task. passing tasksdatabse, conflicting task, conflictingindex
       overrideTask(
@@ -180,9 +193,14 @@ export function checkConflicts(tasksDatabase, weekTask, newTask, driver) {
       task,
       index
     ) {
-      const topConflict = (task.start_time < newTask.end_time && task.start_time >= newTask.start_time);
-      const bottomConflict = (task.end_time > newTask.start_time && task.end_time <= newTask.end_time);
-      const withinConflict = (task.end_time >= newTask.end_time && task.start_time <= newTask.start_time);
+      const topConflict =
+        task.start_time < newTask.end_time &&
+        task.start_time >= newTask.start_time;
+      const bottomConflict =
+        task.end_time > newTask.start_time && task.end_time <= newTask.end_time;
+      const withinConflict =
+        task.end_time >= newTask.end_time &&
+        task.start_time <= newTask.start_time;
       const isConflict =
         task.day === newTask.day &&
         (topConflict || bottomConflict || withinConflict);

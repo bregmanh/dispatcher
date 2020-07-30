@@ -6,12 +6,16 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import {
+  createMuiTheme,
+  makeStyles,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { green } from '@material-ui/core/colors';
+import { green } from "@material-ui/core/colors";
 
 const { createTask, saveNewTask } = require("../helpers/formSubmitters");
 
@@ -73,20 +77,19 @@ export default function NewTaskForm({ driver, tasksDatabase, changeState }) {
   };
 
   //custom validation rule to ensure end time is greater than start time
-  ValidatorForm.addValidationRule('greaterThanStart', (value) => {
+  ValidatorForm.addValidationRule("greaterThanStart", (value) => {
     if (value <= newTask["start_time"]) {
       return false;
     }
     return true;
   });
 
-
   return (
     <div>
       <ThemeProvider theme={theme}>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        New Task
-      </Button>
+        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          New Task
+        </Button>
       </ThemeProvider>
       <Dialog
         open={open}

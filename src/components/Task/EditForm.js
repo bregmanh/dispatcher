@@ -23,7 +23,7 @@ export default function EditForm(props) {
   const [newTask, setNewTask] = React.useState({});
   const [taskType, setTaskType] = React.useState();
   const [dayChosen, setDay] = React.useState("");
-  
+
   //to keep track of the original week of the task being edited
   const originalWeek = props.week;
 
@@ -81,8 +81,8 @@ export default function EditForm(props) {
     );
   };
 
-   //custom validation rule to ensure end time is greater than start time
-   ValidatorForm.addValidationRule('greaterThanStart', (value) => {
+  //custom validation rule to ensure end time is greater than start time
+  ValidatorForm.addValidationRule("greaterThanStart", (value) => {
     if (value <= newTask["start_time"]) {
       return false;
     }

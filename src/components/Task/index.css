@@ -1,17 +1,16 @@
 .task_show {
   display: flex;
-  flex-direction: column;  
- justify-content: center;
+  flex-direction: column;
+  justify-content: center;
   margin: 0;
-  
   border-style: inset;
   border-color: #4b0082;
   text-align: center;
   font-size: small;
   border-radius: 15px;
   white-space: nowrap;
-    overflow: hidden;
-  text-overflow: ellipsis; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .buttons {
   display: flex;

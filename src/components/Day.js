@@ -17,7 +17,6 @@ export default function Day(props) {
     display: "grid",
     gridTemplateRows: "repeat(24, 5em)",
     marginTop: "2em",
-
   };
   return (
     <div style={styles}>
@@ -25,7 +24,9 @@ export default function Day(props) {
         (task, index) =>
           props.tasksDatabase[props.driver["id"]][props.week] && (
             <Task
-              key={`${props.tasksDatabase[props.driver["id"]][props.week]}_${task["day"]}_${task["start_time"]}`}
+              key={`${props.tasksDatabase[props.driver["id"]][props.week]}_${
+                task["day"]
+              }_${task["start_time"]}`}
               task={task}
               driver={props.driver}
               onEdit={props.onEdit}
