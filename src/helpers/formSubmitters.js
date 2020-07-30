@@ -54,8 +54,6 @@ export function editTask(
   const conflict = results[0];
   const conflictTask = results[1]; //array of conflicting tasks
   const conflictIndex = results[2]; //array of conflicting indecies
-  console.log("original week", originalWeek)
-  console.log("conflict week", weekTask)
 
   //if no conflict
   if (!conflict) {
@@ -89,7 +87,7 @@ export function editTask(
 
     //if conflict, override original but check first if the conflict includes the same task
   } else {
-    //find the index of the task being edited and remove from conflict tasks
+    //find the index of the task being edited and remove from conflict tasks (if the same week)
     let filteredConflicts;
     if(Number(originalWeek) === Number(weekTask)){
 
