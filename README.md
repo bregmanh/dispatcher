@@ -1,7 +1,7 @@
 ## Dispatcher
 An app built with React to help dispatchers manage tasks of their drivers.
 
-**To see deployed app [click here](https://truck-dispatcher.herokuapp.com/).**
+**To see deployed app [click here](https://truck-dispatcher.herokuapp.com/){target="_blank"}.**
 
 ### How to Use
 After downloading, npm install, npm start (and to test, npm test).
