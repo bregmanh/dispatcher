@@ -18,7 +18,7 @@ If the task being edited or the new task being created conflicts with an existin
 #### To Delete a Task
 To delete a task, click the trash icon on the desired task.
 #### To Download a CSV 
-Please choose the desired time interval in the dropdown menu in the top-right corner and the schedule will download. Please note, as an improvement, the CSV generated displays the time frames for the tasks that exist and not for the whole year (i.e., if there are only tasks for the first week, generating the 28 time frame will only have one row).
+Please choose the desired time interval in the dropdown menu in the top-right corner and the schedule will download. Please note, as an improvement, the CSV generated displays the time frames for the tasks that **exist** and not for the whole year (i.e., if there are only tasks for the first week, generating the 28 time frame will only have one row: 1-28 days).
 
 
 
