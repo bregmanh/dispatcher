@@ -13,7 +13,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "export-to-csv": "^0.2.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-material-ui-form-validator": "^2.0.10",
